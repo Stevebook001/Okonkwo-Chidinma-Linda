@@ -113,7 +113,8 @@ function BlogPortal() {
   );
 }
 
-function Portal({ host }: { host: string }) {\n  if (host === "blogs.ocl.it.com") return <BlogPortal />;
+function Portal({ host }: { host: string }) {
+  if (host === "blogs.ocl.it.com") return <BlogPortal />;
   const configs: Record<string,{title:string;description:string;eyebrow:string}> = {
     "blogs.ocl.it.com": { eyebrow:"OCL PUBLISHING", title:"Health knowledge worth finding.", description:"The OCL Health Blog will be the publishing home for pharmacy, chemistry, medicine education, wellness and practical health content." },
     "developers.ocl.it.com": { eyebrow:"OCL DEVELOPER PLATFORM", title:"Build with OCL.", description:"Developer APIs, authentication, webhooks, SDKs, sandbox access and integration guides for approved OCL services — designed without exposing private customer health records." },
