@@ -15,6 +15,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${site}/legal/privacy`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
     { url: `${site}/legal/terms`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
     { url: `${site}/legal/refund`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${site}/legal/drug-policy`, lastModified: now, changeFrequency: "yearly", priority: 0.4 },
+    { url: `${site}/legal/kedi-seller-policy`, lastModified: now, changeFrequency: "yearly", priority: 0.4 },
     { url: `${site}/legal/code-of-conduct`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
     { url: `${site}/legal/ads`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
     { url: `${site}/legal/medical-disclaimer`, lastModified: now, changeFrequency: "yearly", priority: 0.4 },
