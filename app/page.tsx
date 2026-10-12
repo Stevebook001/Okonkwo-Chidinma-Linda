@@ -86,7 +86,34 @@ function MainSite() {
   );
 }
 
-function Portal({ host }: { host: string }) {
+function BlogPortal() {
+  const posts = [
+    { category: "MEDICINE EDUCATION", title: "How to read a medicine label safely", excerpt: "Learn where to look for the active ingredient, strength, directions, warnings, expiry date and storage guidance.", slug: "read-a-medicine-label" },
+    { category: "PHARMACY TIPS", title: "Questions to ask your pharmacist before using a medicine", excerpt: "A practical checklist to help you understand what a medicine is for, how to use it, and when to seek professional advice.", slug: "questions-for-your-pharmacist" },
+    { category: "EVERYDAY WELLNESS", title: "Building simple, sustainable nutrition habits", excerpt: "Small, realistic ways to make balanced food choices part of everyday life without chasing miracle claims.", slug: "sustainable-nutrition-habits" },
+  ];
+  return (
+    <>
+      <header className="nav">
+        <a className="brand" href="https://ocl.it.com"><span className="brandMark">✚</span><span>OCL <b>Health</b></span></a>
+        <nav><a href="https://ocl.it.com/#about">About OCL</a><a href="https://shop.ocl.it.com">Marketplace</a><a className="navButton" href="mailto:me.ocl.it.com@gmail.com">Contact</a></nav>
+      </header>
+      <section className="blogHero">
+        <div><span className="eyebrow">THE OCL HEALTH JOURNAL</span><h1>Clear health information.<br/><em>More confident questions.</em></h1><p>Accessible educational articles about pharmacy, medicine labels, wellness and how to have more informed conversations with qualified healthcare professionals.</p><div className="actions"><a className="primary" href="#latest">Explore articles ↓</a><a className="secondary" href="https://ocl.it.com">Visit OCL Health</a></div></div>
+        <aside className="blogHeroCard"><span className="blogBadge">OCL EDITORIAL</span><div className="blogIllustration">✚</div><h2>Knowledge is a good place to start.</h2><p>Evidence-aware, practical education — never a substitute for personal medical advice.</p></aside>
+      </section>
+      <section className="section" id="latest">
+        <div className="sectionHead"><div><span className="eyebrow">LATEST GUIDES</span><h2>Start with the essentials.</h2></div><span className="blogCount">3 editorial guides</span></div>
+        <div className="articleGrid">{posts.map((post, index) => <article className="article blogArticle" key={post.slug}><div className="articleImage blogArtImage"><span>0{index + 1}</span></div><span>{post.category}</span><h3>{post.title}</h3><p>{post.excerpt}</p><a href={`/articles/${post.slug}`}>Read guide →</a></article>)}</div>
+      </section>
+      <section className="blogTopics"><span className="eyebrow">EXPLORE BY TOPIC</span><div className="topicRow">{["Medicine education","Pharmacy conversations","Nutrition","Everyday wellness","Product safety","Health literacy"].map(topic => <span key={topic}>{topic}</span>)}</div></section>
+      <section className="blogDisclaimer"><strong>A note on health information</strong><p>OCL articles are for general education only. They do not diagnose conditions, recommend an individual treatment plan, or replace advice from a qualified pharmacist, doctor or other licensed healthcare professional. For an urgent or severe symptom, seek appropriate local medical care.</p></section>
+      <footer><div className="footerTop"><div><a className="brand" href="https://ocl.it.com"><span className="brandMark">✚</span><span>OCL <b>Health</b></span></a><p>Pharmacy, chemistry, wellness and practical health education.</p></div><div><b>Explore</b><a href="#latest">Latest guides</a><a href="https://shop.ocl.it.com">Marketplace</a><a href="https://developers.ocl.it.com">Developers</a></div><div><b>Platform</b><a href="https://admin.ocl.it.com">Admin portal</a><a href="https://docs.ocl.it.com">Documentation</a><a href="https://support.ocl.it.com">Support</a></div><div><b>Policies</b><a href="https://ocl.it.com/legal/privacy">Privacy</a><a href="https://ocl.it.com/legal/terms">Terms</a><a href="https://ocl.it.com/legal/medical-disclaimer">Medical disclaimer</a></div></div><div className="footerBottom">© 2026 OCL Health • Educational content, not personal medical advice.</div></footer>
+    </>
+  );
+}
+
+function Portal({ host }: { host: string }) {\n  if (host === "blogs.ocl.it.com") return <BlogPortal />;
   const configs: Record<string,{title:string;description:string;eyebrow:string}> = {
     "blogs.ocl.it.com": { eyebrow:"OCL PUBLISHING", title:"Health knowledge worth finding.", description:"The OCL Health Blog will be the publishing home for pharmacy, chemistry, medicine education, wellness and practical health content." },
     "developers.ocl.it.com": { eyebrow:"OCL DEVELOPER PLATFORM", title:"Build with OCL.", description:"Developer APIs, authentication, webhooks, SDKs, sandbox access and integration guides for approved OCL services — designed without exposing private customer health records." },
