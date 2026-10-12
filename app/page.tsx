@@ -88,9 +88,9 @@ function MainSite() {
 
 function BlogPortal() {
   const posts = [
-    { category: "MEDICINE EDUCATION", title: "How to read a medicine label safely", excerpt: "Learn where to look for the active ingredient, strength, directions, warnings, expiry date and storage guidance.", slug: "read-a-medicine-label" },
-    { category: "PHARMACY TIPS", title: "Questions to ask your pharmacist before using a medicine", excerpt: "A practical checklist to help you understand what a medicine is for, how to use it, and when to seek professional advice.", slug: "questions-for-your-pharmacist" },
-    { category: "EVERYDAY WELLNESS", title: "Building simple, sustainable nutrition habits", excerpt: "Small, realistic ways to make balanced food choices part of everyday life without chasing miracle claims.", slug: "sustainable-nutrition-habits" },
+    { category: "MEDICINE EDUCATION", image: "/blog/medicine-label.svg", title: "How to read a medicine label safely", excerpt: "Learn where to look for the active ingredient, strength, directions, warnings, expiry date and storage guidance.", slug: "read-a-medicine-label" },
+    { category: "PHARMACY TIPS", image: "/blog/pharmacist-conversation.svg", title: "Questions to ask your pharmacist before using a medicine", excerpt: "A practical checklist to help you understand what a medicine is for, how to use it, and when to seek professional advice.", slug: "questions-for-your-pharmacist" },
+    { category: "EVERYDAY WELLNESS", image: "/blog/nutrition-habits.svg", title: "Building simple, sustainable nutrition habits", excerpt: "Small, realistic ways to make balanced food choices part of everyday life without chasing miracle claims.", slug: "sustainable-nutrition-habits" },
   ];
   return (
     <>
@@ -104,7 +104,7 @@ function BlogPortal() {
       </section>
       <section className="section" id="latest">
         <div className="sectionHead"><div><span className="eyebrow">LATEST GUIDES</span><h2>Start with the essentials.</h2></div><span className="blogCount">3 editorial guides</span></div>
-        <div className="articleGrid">{posts.map((post, index) => <article className="article blogArticle" key={post.slug}><div className="articleImage blogArtImage"><span>0{index + 1}</span></div><span>{post.category}</span><h3>{post.title}</h3><p>{post.excerpt}</p><a href={`/articles/${post.slug}`}>Read guide →</a></article>)}</div>
+        <div className="articleGrid">{posts.map((post, index) => <article className="article blogArticle" key={post.slug}><div className="articleImage blogArtImage"><img src={post.image} alt={post.title} loading="lazy" /><span>0{index + 1}</span></div><span>{post.category}</span><h3>{post.title}</h3><p>{post.excerpt}</p><a href={`/articles/${post.slug}`}>Read guide →</a></article>)}</div>
       </section>
       <section className="blogTopics"><span className="eyebrow">EXPLORE BY TOPIC</span><div className="topicRow">{["Medicine education","Pharmacy conversations","Nutrition","Everyday wellness","Product safety","Health literacy"].map(topic => <span key={topic}>{topic}</span>)}</div></section>
       <section className="blogDisclaimer"><strong>A note on health information</strong><p>OCL articles are for general education only. They do not diagnose conditions, recommend an individual treatment plan, or replace advice from a qualified pharmacist, doctor or other licensed healthcare professional. For an urgent or severe symptom, seek appropriate local medical care.</p></section>
