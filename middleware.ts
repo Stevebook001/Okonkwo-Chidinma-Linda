@@ -4,7 +4,8 @@ import { NextRequest, NextResponse } from "next/server";
 export async function middleware(request: NextRequest) {
   const hostname = request.headers.get("host")?.split(":")[0]?.toLowerCase() ?? "";
 
-  if (hostname === "admin.ocl.it.com") {
+  const isAdminRequest = hostname === "admin.ocl.it.com" || request.nextUrl.pathname === "/admin" || request.nextUrl.pathname.startsWith("/admin/");
+  if (isAdminRequest) {
     const username = process.env.OCL_ADMIN_USER;
     const password = process.env.OCL_ADMIN_PASSWORD;
 
