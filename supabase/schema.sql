@@ -126,14 +126,13 @@ create policy "Published posts are publicly readable" on public.posts for select
 create policy "Editors and admins can manage posts" on public.posts for all to authenticated using ((auth.jwt()->'app_metadata'->>'role') in ('editor','admin')) with check ((auth.jwt()->'app_metadata'->>'role') in ('editor','admin'));
 
 create policy "Customers can view their own orders" on public.orders for select to authenticated using ((select auth.uid()) = user_id);
-create policy "Customers can create orders for themselves" on public.orders for insert to authenticated with check ((select auth.uid()) = user_id);
 create policy "Admins can manage orders" on public.orders for all to authenticated using ((auth.jwt()->'app_metadata'->>'role') = 'admin') with check ((auth.jwt()->'app_metadata'->>'role') = 'admin');
 
 create policy "Customers can view their own order items" on public.order_items for select to authenticated using (exists (select 1 from public.orders o where o.id = order_id and o.user_id = (select auth.uid())));
 create policy "Admins can manage order items" on public.order_items for all to authenticated using ((auth.jwt()->'app_metadata'->>'role') = 'admin') with check ((auth.jwt()->'app_metadata'->>'role') = 'admin');
 
 create policy "Customers can view their own refunds" on public.refund_requests for select to authenticated using ((select auth.uid()) = user_id);
-create policy "Customers can submit their own refunds" on public.refund_requests for insert to authenticated with check ((select auth.uid()) = user_id);
+create policy "Customers can submit their own refunds" on public.refund_requests for insert to authenticated with check ((select auth.uid()) = user_id and exists (select 1 from public.orders o where o.id = order_id and o.user_id = (select auth.uid())));
 create policy "Admins can manage refunds" on public.refund_requests for all to authenticated using ((auth.jwt()->'app_metadata'->>'role') = 'admin') with check ((auth.jwt()->'app_metadata'->>'role') = 'admin');
 
 -- Newsletter writes must be submitted through a server route with rate limiting and consent capture.
@@ -163,3 +162,58 @@ drop trigger if exists protect_profile_role_trigger on public.profiles;
 create trigger protect_profile_role_trigger
 before insert or update on public.profiles
 for each row execute function public.protect_profile_role();
+
+
+-- Require a cover image and at least 1,500 words before any article can be published.
+create or replace function public.validate_post_publication()
+returns trigger
+language plpgsql
+as $$
+declare
+  measured_words integer;
+begin
+  if new.status = 'published' then
+    if coalesce(trim(new.cover_image_url), '') = '' then
+      raise exception 'Published health articles must have a cover image.';
+    end if;
+    measured_words := array_length(regexp_split_to_array(trim(coalesce(new.body_markdown, '')), '\s+'), 1);
+    if coalesce(measured_words, 0) < 1500 then
+      raise exception 'Published health articles must contain at least 1,500 words.';
+    end if;
+    new.published_at := coalesce(new.published_at, now());
+  end if;
+  new.updated_at := now();
+  return new;
+end;
+$$;
+
+drop trigger if exists validate_post_publication_trigger on public.posts;
+create trigger validate_post_publication_trigger
+before insert or update on public.posts
+for each row execute function public.validate_post_publication();
+
+-- Regulated products and Kedi listings remain blocked until required evidence exists.
+create or replace function public.validate_product_publication()
+returns trigger
+language plpgsql
+as $$
+begin
+  if new.status = 'active' and new.is_regulated and coalesce(trim(new.nafdac_registration), '') = '' then
+    raise exception 'Regulated products require verified registration evidence before activation.';
+  end if;
+  if new.status = 'active' and new.kedi_product and
+     (coalesce(trim(new.seller_authorisation_reference), '') = '' or coalesce(trim(new.approval_evidence_url), '') = '') then
+    raise exception 'Kedi products require seller authorisation and written approval evidence before activation.';
+  end if;
+  if new.status = 'active' and new.prescription_required then
+    raise exception 'Prescription-only listings are blocked until a compliant dispensing workflow is approved.';
+  end if;
+  new.updated_at := now();
+  return new;
+end;
+$$;
+
+drop trigger if exists validate_product_publication_trigger on public.products;
+create trigger validate_product_publication_trigger
+before insert or update on public.products
+for each row execute function public.validate_product_publication();
