@@ -139,3 +139,27 @@ create policy "Admins can manage refunds" on public.refund_requests for all to a
 -- Newsletter writes must be submitted through a server route with rate limiting and consent capture.
 create policy "Admins can view newsletter subscriptions" on public.newsletter_subscribers for select to authenticated using ((auth.jwt()->'app_metadata'->>'role') = 'admin');
 create policy "Admins can view audit logs" on public.audit_logs for select to authenticated using ((auth.jwt()->'app_metadata'->>'role') = 'admin');
+
+
+-- Do not let a customer promote their own profile by editing a public profile row.
+create or replace function public.protect_profile_role()
+returns trigger
+language plpgsql
+as $$
+begin
+  if coalesce(auth.jwt()->'app_metadata'->>'role', '') <> 'admin' then
+    if tg_op = 'INSERT' then
+      new.role := 'customer';
+    else
+      new.role := old.role;
+    end if;
+  end if;
+  new.updated_at := now();
+  return new;
+end;
+$$;
+
+drop trigger if exists protect_profile_role_trigger on public.profiles;
+create trigger protect_profile_role_trigger
+before insert or update on public.profiles
+for each row execute function public.protect_profile_role();
