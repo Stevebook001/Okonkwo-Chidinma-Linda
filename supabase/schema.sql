@@ -89,7 +89,10 @@ create table if not exists public.refund_requests (
 create table if not exists public.newsletter_subscribers (
   id uuid primary key default gen_random_uuid(),
   email text not null unique,
+  status text not null default 'pending' check (status in ('pending','active','unsubscribed')),
+  confirmation_token uuid,
   consented_at timestamptz not null default now(),
+  confirmed_at timestamptz,
   unsubscribed_at timestamptz
 );
 
