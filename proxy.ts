@@ -22,7 +22,9 @@ export async function proxy(request: NextRequest) {
       try {
         const [providedUser, ...passwordParts] = atob(authorization.slice(6)).split(":");
         if (providedUser === username && passwordParts.join(":") === password) {
-          const response = NextResponse.next();
+          const response = hostname === "admin.ocl.it.com" && request.nextUrl.pathname === "/"
+            ? NextResponse.redirect(new URL("/admin", request.url))
+            : NextResponse.next();
           response.headers.set("Cache-Control", "private, no-store, max-age=0");
           response.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
           return response;
