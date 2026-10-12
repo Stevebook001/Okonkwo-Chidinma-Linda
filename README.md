@@ -64,6 +64,26 @@ Subdomain responsibilities are intentionally separated:
 | status.ocl.it.com | Service health/status |
 | support.ocl.it.com | Customer support |
 
+## Policies and publishing
+
+- Refund, cancellation and returns policy: /legal/refund
+- Drug and regulated products policy: /legal/drug-policy
+- Kedi Healthcare seller compliance policy: /legal/kedi-seller-policy
+- Each published educational article must include a custom cover image, unique metadata, its own Open Graph image, and at least 1,500 words.
+- Kedi listings remain unpublished until the seller's current membership/channel permissions, product documentation and approved marketing claims have been checked. Star 2 status is not treated as blanket authorisation for every product or online sales channel.
+
+## Backend setup
+
+1. Create a dedicated Supabase project for OCL Health; do not reuse the unrelated inactive project.
+2. Apply `supabase/schema.sql` to that dedicated project's SQL editor after reviewing the schema.
+3. Add `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, and the server-only `SUPABASE_SECRET_KEY` to Vercel.
+4. Configure Supabase Auth site URL and allowed redirects for `https://account.ocl.it.com/auth/callback` and any approved preview URL.
+5. Set `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, and `OCL_SUPPORT_EMAIL` in Vercel. Keep secrets server-side; never use a `NEXT_PUBLIC_` prefix for secrets.
+6. Set unique `OCL_ADMIN_USER` and `OCL_ADMIN_PASSWORD` values. The admin host fails closed until these are set.
+7. Enable live checkout only after payment webhooks, inventory, refund workflows, product approvals and seller eligibility have been tested.
+
+The account forms and newsletter route require the Supabase project and schema to be configured before they can create real accounts or store subscriptions. The contact form uses Resend after the sender credentials are configured.
+
 ## Security principles
 
 - Never expose service-role, payment or AI provider secrets in browser code.
