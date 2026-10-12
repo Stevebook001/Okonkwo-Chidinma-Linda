@@ -31,7 +31,7 @@ function MainSite() {
         <a className="brand" href="/"><span className="brandMark">✚</span><span>OCL <b>Health</b></span></a>
         <nav>
           <a href="#about">About</a><a href="#marketplace">Marketplace</a><a href="#blog">Health Blog</a>
-          <a href="https://developers.ocl.it.com">Developers</a><a className="navButton" href="https://account.ocl.it.com">Sign in</a>
+          <a href="https://developers.ocl.it.com">Developers</a><a className="navButton" href="https://account.ocl.it.com/auth/sign-in">Sign in</a>
         </nav>
       </header>
 
