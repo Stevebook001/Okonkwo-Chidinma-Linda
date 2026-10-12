@@ -27,6 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
     keywords:["OCL Health","pharmacy","health","wellness","medicine education","chemistry"],
     openGraph:{title:c.title,description:c.description,url:"https://"+host,siteName:"OCL Health",type:"website",images:[{url:"/opengraph-image",width:1200,height:630,alt:c.title}]},
     twitter:{card:"summary_large_image",title:c.title,description:c.description,images:["/opengraph-image"]},
+    robots: host === "admin.ocl.it.com" ? { index: false, follow: false, noarchive: true } : undefined,
     icons:{icon:"/icon.svg",apple:"/icon.svg"}
   };
 }
