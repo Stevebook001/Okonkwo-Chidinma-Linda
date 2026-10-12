@@ -66,7 +66,7 @@ function MainSite() {
 
       <section id="marketplace" className="section tinted">
         <div className="sectionHead"><div><span className="eyebrow">MARKETPLACE</span><h2>Health products, explained clearly.</h2></div><a href="https://shop.ocl.it.com">Open shop →</a></div>
-        <div className="productGrid">{products.map(([name,category,slug,image]) => <article className="product" key={name}><a className="productImage" href={"/products/"+slug}><img src={image} alt={"Illustrative catalogue image for "+name} loading="lazy"/><span>VIEW DETAILS</span></a><div className="productBody"><span>{category}</span><h3><a href={"/products/"+slug}>{name}</a></h3><p>Catalogue preview only. Product details and regulatory status must be verified before sale.</p><strong>Not available to order yet</strong><small>Compliance review required</small></div></article>)}</div>
+        <div className="productGrid">{products.map(([name,category,slug,image]) => <article className="product" key={name}><a className="productImage" href={"https://shop.ocl.it.com/products/"+slug}><img src={image} alt={"Illustrative catalogue image for "+name} loading="lazy"/><span>VIEW DETAILS</span></a><div className="productBody"><span>{category}</span><h3><a href={"/products/"+slug}>{name}</a></h3><p>Catalogue preview only. Product details and regulatory status must be verified before sale.</p><strong>Not available to order yet</strong><small>Compliance review required</small></div></article>)}</div>
         <p className="notice">Product prices and availability can change. The production marketplace will show current information and a last-updated timestamp before purchase.</p>
       </section>
 
