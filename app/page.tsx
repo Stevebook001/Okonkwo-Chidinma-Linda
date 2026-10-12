@@ -1,15 +1,17 @@
 import { headers } from "next/headers";
+import ContactForm from "@/app/ContactForm";
+import NewsletterForm from "@/app/NewsletterForm";
 
 const products = [
-  ["Vitamin C 1000mg", "Vitamins & Supplements"],
-  ["Paracetamol", "Pain & Fever"],
-  ["Antacid Suspension", "Digestive Health"],
+  ["Vitamin C 1000mg", "Vitamins & Supplements", "vitamin-c-1000mg", "/products/vitamin-c.svg"],
+  ["Paracetamol", "Medicine catalogue", "paracetamol", "/products/paracetamol.svg"],
+  ["Antacid Suspension", "Digestive Health", "antacid-suspension", "/products/antacid.svg"],
 ];
 
 const articles = [
-  ["How to read a medicine label safely", "Medicine education"],
-  ["What pharmacists want you to know about self-medication", "Pharmacy tips"],
-  ["Simple nutrition habits that support everyday wellness", "Nutrition"],
+  ["How to read a medicine label safely", "Medicine education", "read-a-medicine-label", "/blog/medicine-label.svg"],
+  ["Questions to ask your pharmacist before using a medicine", "Pharmacy tips", "questions-for-your-pharmacist", "/blog/pharmacist-conversation.svg"],
+  ["Building simple, sustainable nutrition habits", "Nutrition", "sustainable-nutrition-habits", "/blog/nutrition-habits.svg"],
 ];
 
 function HostBanner({ title, description, eyebrow }: { title: string; description: string; eyebrow: string }) {
@@ -64,23 +66,23 @@ function MainSite() {
 
       <section id="marketplace" className="section tinted">
         <div className="sectionHead"><div><span className="eyebrow">MARKETPLACE</span><h2>Health products, explained clearly.</h2></div><a href="https://shop.ocl.it.com">Open shop →</a></div>
-        <div className="productGrid">{products.map(([name,category]) => <article className="product" key={name}><div className="productImage"><span>OCL HEALTH</span></div><div className="productBody"><span>{category}</span><h3>{name}</h3><p>Product information, intended use, key details and safety notes will be managed from the future OCL catalogue.</p><strong>Price coming soon</strong><small>Admin-managed pricing</small></div></article>)}</div>
+        <div className="productGrid">{products.map(([name,category,slug,image]) => <article className="product" key={name}><a className="productImage" href={"/products/"+slug}><img src={image} alt={"Illustrative catalogue image for "+name} loading="lazy"/><span>VIEW DETAILS</span></a><div className="productBody"><span>{category}</span><h3><a href={"/products/"+slug}>{name}</a></h3><p>Catalogue preview only. Product details and regulatory status must be verified before sale.</p><strong>Not available to order yet</strong><small>Compliance review required</small></div></article>)}</div>
         <p className="notice">Product prices and availability can change. The production marketplace will show current information and a last-updated timestamp before purchase.</p>
       </section>
 
       <section id="blog" className="section">
         <div className="sectionHead"><div><span className="eyebrow">HEALTH BLOG</span><h2>Content that helps people find OCL.</h2></div><a href="https://blogs.ocl.it.com">Open blog →</a></div>
         <div className="topicRow">{["Pharmacy tips","Medicine education","Women’s health","Men’s health","Nutrition","Wellness"].map(t => <span key={t}>{t}</span>)}</div>
-        <div className="articleGrid">{articles.map(([title,cat]) => <article className="article" key={title}><div className="articleImage"></div><span>{cat}</span><h3>{title}</h3><p>Publishing tools will let the OCL team create, edit, schedule and optimise articles.</p><a href="https://blogs.ocl.it.com">Read blog →</a></article>)}</div>
+        <div className="articleGrid">{articles.map(([title,cat,slug,image]) => <article className="article" key={title}><div className="articleImage"><img src={image} alt={title} loading="lazy"/></div><span>{cat}</span><h3>{title}</h3><p>Practical educational guidance with a clear health-safety disclaimer.</p><a href={"https://blogs.ocl.it.com/articles/"+slug}>Read full guide →</a></article>)}</div>
       </section>
 
       <section className="developerStrip"><div><span className="eyebrow">FOR BUILDERS</span><h2>OCL can become a platform developers can build on.</h2><p>APIs for approved product, content and platform services can eventually power apps and integrations without exposing customer health records.</p></div><a className="secondary" href="https://developers.ocl.it.com">Explore OCL Developers →</a></section>
 
-      <section className="newsletter"><div><span className="eyebrow">OCL NEWSLETTER</span><h2>Useful health knowledge, without the noise.</h2><p>Newsletter subscriptions will be connected to the production email system during the backend phase.</p></div><form><input type="email" placeholder="Your email address" aria-label="Email address"/><button type="button">Join</button></form></section>
+      <section className="newsletter"><div><span className="eyebrow">OCL NEWSLETTER</span><h2>Useful health knowledge, without the noise.</h2><p>Newsletter subscriptions will be connected to the production email system during the backend phase.</p></div><NewsletterForm/></section>
 
-      <section className="contact section"><span className="eyebrow">CONTACT</span><h2>OCL is being built for a real healthcare team.</h2><p>Questions, product enquiries and partnership requests will eventually flow through the OCL support system.</p><a className="primary" href="mailto:hello@ocl.it.com">Contact OCL Health</a></section>
+      <section className="contact section"><span className="eyebrow">CONTACT</span><h2>OCL is being built for a real healthcare team.</h2><p>Questions, product enquiries and partnership requests will eventually flow through the OCL support system.</p><ContactForm/></section>
 
-      <footer><div className="footerTop"><div><a className="brand" href="/"><span className="brandMark">✚</span><span>OCL <b>Health</b></span></a><p>Pharmacy, chemistry, wellness and health education.</p></div><div><b>Explore</b><a href="#marketplace">Marketplace</a><a href="https://blogs.ocl.it.com">Health Blog</a><a href="https://developers.ocl.it.com">Developers</a></div><div><b>Platform</b><a href="https://account.ocl.it.com">Account</a><a href="https://admin.ocl.it.com">Admin</a><a href="https://docs.ocl.it.com">Docs</a></div><div><b>Legal</b><a href="/legal/privacy">Privacy</a><a href="/legal/terms">Terms</a><a href="/legal/refund">Refund policy</a></div></div><div className="footerBottom">© 2026 OCL Health • Built with care • Health information is educational and not a substitute for professional medical advice.</div></footer>
+      <footer><div className="footerTop"><div><a className="brand" href="/"><span className="brandMark">✚</span><span>OCL <b>Health</b></span></a><p>Pharmacy, chemistry, wellness and health education.</p></div><div><b>Explore</b><a href="#marketplace">Marketplace</a><a href="https://blogs.ocl.it.com">Health Blog</a><a href="https://developers.ocl.it.com">Developers</a></div><div><b>Platform</b><a href="https://account.ocl.it.com">Account</a><a href="https://admin.ocl.it.com">Admin</a><a href="https://docs.ocl.it.com">Docs</a></div><div><b>Legal</b><a href="/legal/privacy">Privacy</a><a href="/legal/terms">Terms</a><a href="/legal/refund">Refund policy</a><a href="/legal/drug-policy">Drug policy</a><a href="/legal/kedi-seller-policy">Kedi seller policy</a></div></div><div className="footerBottom">© 2026 OCL Health • Built with care • Health information is educational and not a substitute for professional medical advice.</div></footer>
       <button className="aiWidget" type="button" title="OCL AI is being built">✦ <span>OCL AI</span></button>
     </>
   );
