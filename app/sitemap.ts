@@ -23,6 +23,11 @@ const PUBLISHED_ARTICLES = [
   "read-a-medicine-label",
   "questions-for-your-pharmacist",
   "sustainable-nutrition-habits",
+  "storing-medicines-safely",
+  "prepare-for-pharmacist-visit",
+  "understanding-supplement-labels",
+  "safe-use-of-over-the-counter-medicines",
+  "building-a-personal-medicine-list",
 ] as const;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
