@@ -39,6 +39,9 @@ export default async function Admin() {
   let databaseConnected = false;
   let databaseMessage = "Missing server-side Supabase configuration";
   let counts: CountResult[] = [];
+  let pageViews30d = 0;
+  let topPages: { path: string; views: number }[] = [];
+  let analyticsError = "";
 
   if (supabaseUrl && secretKey) {
     const client = createClient(supabaseUrl, secretKey, { auth: { persistSession: false, autoRefreshToken: false } });
@@ -58,6 +61,28 @@ export default async function Admin() {
     databaseMessage = databaseConnected
       ? "Connected • live row counts from OCL Supabase"
       : `Database credentials exist, but ${failed.length} table check(s) failed. Review schema permissions and migrations.`;
+
+    const since = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+    const { data: events, error } = await client
+      .from("analytics_events")
+      .select("event_name,page_path,created_at")
+      .eq("event_name", "page_view")
+      .gte("created_at", since)
+      .limit(10000);
+    if (error) {
+      analyticsError = "Page-view query failed. Check analytics_events schema and service key permissions.";
+    } else {
+      pageViews30d = events?.length ?? 0;
+      const byPath = new Map<string, number>();
+      for (const event of events ?? []) {
+        const path = typeof event.page_path === "string" ? event.page_path : "/";
+        byPath.set(path, (byPath.get(path) ?? 0) + 1);
+      }
+      topPages = [...byPath.entries()]
+        .map(([path, views]) => ({ path, views }))
+        .sort((a, b) => b.views - a.views)
+        .slice(0, 8);
+    }
   }
 
   const metricValue = (label: string) => counts.find((item) => item.label === label);
@@ -78,6 +103,21 @@ export default async function Admin() {
       <section className="adminReadiness adminAnalyticsGrid">
         {counts.map((item) => <article key={item.label}><span className={item.error ? "adminStatusDot pending" : "adminStatusDot good"}/> <span>{item.label}</span><strong>{item.count === null ? "Unavailable" : item.count.toLocaleString()}</strong><small>{item.error ? "Check database schema and permissions" : "Live database count"}</small></article>)}
         {!secretKey && <article><span className="adminStatusDot pending"/> <span>Database metrics</span><strong>Not connected</strong><small>Add SUPABASE_SECRET_KEY in Vercel</small></article>}
+      </section>
+      <section className="adminModulesHead">
+        <div><span className="eyebrow">FIRST-PARTY ANALYTICS</span><h2>Public page views · last 30 days</h2><p>Counts are collected by OCL's own event endpoint and stored in Supabase. This tracker records paths and referrer hostnames only, not query strings, form entries or raw IP addresses.</p></div>
+      </section>
+      <section className="adminAnalyticsPanel">
+        <article className="adminModule">
+          <div className="adminModuleTop"><span className="adminModuleNumber">30D</span><span className={analyticsError ? "adminTag pendingTag" : "adminTag goodTag"}>{analyticsError ? "Needs attention" : "First-party"}</span></div>
+          <h3>{analyticsError ? "Page-view metrics unavailable" : pageViews30d.toLocaleString()}</h3>
+          <p>{analyticsError || "Recorded public page views during the last 30 days. New tracking begins after the current deployment is live."}</p>
+        </article>
+        <article className="adminModule">
+          <div className="adminModuleTop"><span className="adminModuleNumber">TOP</span><span className="adminTag goodTag">By views</span></div>
+          <h3>Most visited paths</h3>
+          {topPages.length ? <ol className="adminTopPages">{topPages.map((page) => <li key={page.path}><span>{page.path}</span><strong>{page.views.toLocaleString()}</strong></li>)}</ol> : <p>No page-view events recorded yet. Visit the public website after deployment and this panel will populate with real events.</p>}
+        </article>
       </section>
       <section className="adminModulesHead">
         <div><span className="eyebrow">EXTERNAL ANALYTICS</span><h2>Search, traffic and monetisation</h2><p>These links open the provider dashboards. Full in-admin traffic metrics need provider API credentials; connecting a ChatGPT plugin does not automatically expose its credentials to this website.</p></div>
