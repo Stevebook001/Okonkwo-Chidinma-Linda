@@ -253,6 +253,38 @@ const articles: Record<string, Article> = {
         "Do not keep expired or unneeded medicines indefinitely, and do not share leftover prescription medicines with friends or relatives. Ask a pharmacy or local health authority about a suitable take-back or disposal route in your area. Disposal instructions can vary by product, so do not flush medicines or pour them into a drain unless official instructions specifically say to.",
         "Before disposal, check whether the product is subject to a recall or whether a pharmacist needs its packaging details to investigate a concern. Keep unwanted medicines secure until they can be handled safely. This guide is general education only; product-specific storage and disposal advice should come from the label, pharmacist or relevant authority."
       ]}
+      { heading: "8. Create a household medicine check routine", paragraphs: [
+        "Choose a regular moment to review the medicines stored at home, such as when organising a cupboard or collecting a repeat prescription. Check labels, expiry dates, packaging and whether the product is still needed. Keep products that need professional advice separate from items you know are current, and avoid making a clinical decision from appearance alone.",
+        "A simple checklist can help household members remember to put products away, close child-resistant caps correctly and keep instructions with the right package. The goal is not to inspect medicines obsessively, but to make safe storage an ordinary habit. If you find a product whose identity or condition is uncertain, ask a pharmacist instead of guessing."
+      ]},
+      { heading: "9. Avoid mixing medicines into shared containers", paragraphs: [
+        "Do not combine loose tablets from different boxes into one jar just to save space. If a tablet is separated from its packaging, it may be difficult to identify its name, strength, expiry date or storage requirements. A container that once held one medicine may later be mistaken for another product, especially when several people share a home.",
+        "If a pharmacist has prepared a labelled organiser for a specific person, follow the instructions given for that organiser and ask if you are unsure how it should be maintained. Keep the original packs available when appropriate. Never rely on tablet colour, shape or a photograph alone to confirm an uncertain medicine."
+      ]},
+      { heading: "10. Be careful with medicines in bags and bedside drawers", paragraphs: [
+        "Handbags, school bags, travel bags and bedside drawers can be easy places for children or visitors to find medicines. Heat inside a vehicle or a bag left in sunlight may also affect some products. After carrying a medicine, return it to its usual secure storage location rather than leaving it in a pocket or open bag.",
+        "When travelling with another person's medicine, keep the label readable and make sure the responsible adult knows where it is stored. Do not leave medicines unattended in shared spaces. If a child may have accessed a product, treat the situation seriously and seek urgent advice from an appropriate healthcare professional or emergency service."
+      ]},
+      { heading: "11. Understand instructions after opening", paragraphs: [
+        "Some products have special instructions once a bottle, tube or blister is opened. The period for use after opening may be shorter than the printed expiry date, and storage instructions may change. Look for phrases about discarding after a set period, keeping the cap closed, avoiding contamination or using a product only for one person.",
+        "If the opening date matters, write it on the package where it will not cover important information. If you cannot remember when a product was opened, do not invent a date or assume it remains suitable. Ask a pharmacist or consult the manufacturer's official instructions for the exact product and formulation."
+      ]},
+      { heading: "12. Protect medicines from contamination", paragraphs: [
+        "Keep the container and its closure clean and use products only as directed. Avoid touching the tip of eye drops, inhalers, creams or other applicators when the instructions warn against contamination. Do not share products intended for individual use, and do not return a used measuring device to a different medicine container.",
+        "If packaging is damaged, a seal is broken unexpectedly or the contents look different from what you received, stop and seek advice before use. Do not attempt to repair a medicine package with household tape or transfer the contents to an unlabelled bottle. Safe identification and proper packaging are part of product safety."
+      ]},
+      { heading: "13. Keep an emergency contact plan", paragraphs: [
+        "Households can agree on who to contact if someone takes the wrong medicine, a child may have swallowed a tablet, or a product has leaked or been damaged. Keep local emergency contact information accessible and know where the nearest appropriate healthcare service can be reached. For serious symptoms or a possible poisoning, seek urgent professional guidance immediately.",
+        "Do not wait for symptoms or attempt home remedies such as inducing vomiting unless a qualified emergency professional specifically instructs you. Keep the package or a clear photograph available so responders can identify the product. This article is general education and cannot replace emergency advice tailored to the exact product and situation."
+      ]},
+      { heading: "14. Check official recalls and product alerts", paragraphs: [
+        "Product recalls and safety alerts can affect particular brands, batches, strengths or expiry ranges. Keep packaging long enough to identify the product and batch details, and pay attention to notices from the manufacturer or relevant regulator. If an alert appears to match a medicine you have, follow the official instructions rather than relying on social media summaries.",
+        "Do not continue using a product simply because the batch number is hard to read or because another person says it is probably unaffected. Ask a pharmacist or the relevant authority to help interpret the notice. If you supply care for a family member, communicate the verified information clearly and avoid sharing unconfirmed claims."
+      ]},
+      { heading: "15. A final safe-storage checklist", paragraphs: [
+        "Before putting a medicine away, check that the label is readable, the cap or seal is secure, the expiry date is known and the storage location matches the product's instructions. Keep it away from children, pets, moisture, heat and household chemicals. Return it to the same secure location after every use.",
+        "Review this routine whenever you receive a new medicine or a product's instructions change. If a product's identity, storage history or condition is uncertain, ask a pharmacist. OCL Health provides general health education only; the exact package instructions and advice from a qualified professional should guide decisions about a specific medicine."
+      ]}
     ]
   },
   "prepare-for-pharmacist-visit": {
@@ -291,6 +323,38 @@ const articles: Record<string, Article> = {
       { heading: "7. Make the next visit easier", paragraphs: [
         "After the consultation, update your medicine list and note any changes that were recommended by your healthcare team. Keep the relevant leaflet and record the date of the discussion. If a medicine is changed or stopped, update the list rather than leaving old information mixed with current instructions.",
         "Preparation does not need to be complicated. A phone note, paper list or folder of labelled product photographs may be enough. Choose a method that protects your privacy and is easy to update. Share the information securely with professionals who need it, not in public comments or untrusted online forms."
+      ]}
+      { heading: "8. Prepare for a medicine review", paragraphs: [
+        "If you take several medicines, ask whether a medication review would be useful. Bring your current list and the actual packages or clear photographs if possible. Mention medicines prescribed by different clinics, products bought without a prescription and supplements, because a review based on only part of the list may miss duplicate ingredients or relevant interactions.",
+        "A review is also an opportunity to explain practical problems, such as difficulty swallowing a formulation, remembering a schedule, opening packaging or paying for a medicine. Do not stop or change treatment simply because a review is planned. The professional can discuss options appropriate to your circumstances and coordinate with the prescriber when needed."
+      ]},
+      { heading: "9. Bring the right documents without oversharing", paragraphs: [
+        "Depending on the question, a prescription label, discharge note, test result or product package may help the pharmacist understand what you are asking. Bring only information relevant to the consultation and keep private documents secure. If you are unsure whether a document is useful, ask the pharmacy before sending it through email or a website form.",
+        "Do not post prescriptions, identity details or health records in public comments or social media groups to seek informal advice. Use a trusted healthcare channel and confirm who will receive the information. A pharmacist may need to verify details with the prescriber, but should explain what information is required for that purpose."
+      ]},
+      { heading: "10. Ask about cost and availability openly", paragraphs: [
+        "If cost, stock or access is a concern, explain it early in the conversation. A pharmacist may be able to discuss lawful alternatives, pack sizes, availability or the next step if the exact product is unavailable. Any alternative must be checked for the correct ingredient, strength, formulation and suitability rather than chosen on price alone.",
+        "Do not buy a suspiciously cheap product from an unknown seller or accept a substitution you do not understand. Ask the pharmacist to explain the difference and whether the prescriber needs to approve a change. If a medicine is temporarily unavailable, get clear instructions on what to do rather than skipping or doubling doses without professional advice."
+      ]},
+      { heading: "11. Talk about side effects without guessing", paragraphs: [
+        "If you suspect a medicine is causing a problem, describe the symptom, when it started and how it relates to when you used the product. Mention any recent changes and other medicines you take. Do not decide on your own that a symptom is definitely a side effect or unrelated; the pharmacist can help determine what information is needed.",
+        "Ask what warning signs require urgent care and how to report a suspected reaction. Severe breathing difficulty, swelling of the face or throat, collapse or another emergency requires immediate medical help. For other concerns, follow professional advice about whether the medicine should be continued, reviewed or discussed with the prescriber."
+      ]},
+      { heading: "12. Request an explanation that fits your needs", paragraphs: [
+        "Tell the pharmacist if you prefer written instructions, a larger-print label, a translated explanation or a step-by-step demonstration. If a schedule is complex, ask whether a simple timetable is appropriate for the exact medicine. Accessibility needs are relevant to safe use, and asking for a clearer explanation is better than leaving with instructions you cannot follow.",
+        "If a family member assists you, agree how they can help while respecting privacy and independence. The person using the medicine should understand the instructions as much as possible. Avoid relying on an informal translation of a critical dose or warning when the meaning is uncertain; ask the pharmacy for clarification."
+      ]},
+      { heading: "13. Know what a pharmacist can and cannot do", paragraphs: [
+        "Pharmacists are trained to provide medicine-related advice, identify potential problems and help people understand safe use. The scope of a particular service depends on local rules, the professional's role and the information available. Some symptoms or treatment decisions need assessment by a doctor or another qualified clinician, and the pharmacist may refer you for that care.",
+        "Do not expect a general website, chatbot or brief pharmacy conversation to replace an examination when one is necessary. Ask what the next step should be and how urgently it should happen. If symptoms are severe or rapidly worsening, use emergency services instead of waiting for a routine appointment or message reply."
+      ]},
+      { heading: "14. Write down the plan and follow-up", paragraphs: [
+        "At the end of the consultation, note the agreed next step, who is responsible for it and when you should follow up. If the pharmacist recommends contacting a prescriber, clarify whether you should do that before changing a medicine. Keep the note with your current medicine list, but do not treat an old note as more authoritative than updated instructions.",
+        "If the plan is unclear after you leave, contact the pharmacy through its verified channel and explain which part needs clarification. Do not send unnecessary medical details through an insecure contact form. Good follow-up keeps the original question, professional advice and any subsequent change connected."
+      ]},
+      { heading: "15. Make each conversation count", paragraphs: [
+        "You do not need to ask every possible question during one visit. Prioritise the issue that matters most, bring accurate information and ask the pharmacist to explain any instruction you do not understand. A calm, specific conversation is often more useful than searching many unrelated posts or comparing personal stories online.",
+        "Afterwards, use the agreed advice and seek further help if the situation changes or you notice a warning sign. OCL Health articles are intended to support health literacy, not diagnose or prescribe. Individual decisions should be made with a qualified professional who can consider the exact product and the person's circumstances."
       ]}
     ]
   },
@@ -331,6 +395,38 @@ const articles: Record<string, Article> = {
         "Maintain a list of supplements with their full names, ingredients, amounts and how often you use them. Bring it to appointments alongside your medicine list. This can help a professional identify duplicated ingredients and consider whether the product is relevant to your circumstances.",
         "Review the list when you start or stop a product and check labels when a formula changes. Do not take multiple products with overlapping ingredients without understanding the combined amount. General online information cannot determine what is right for an individual, so use labels as a starting point for a conversation with a qualified professional."
       ]}
+      { heading: "8. Understand proprietary blends and missing quantities", paragraphs: [
+        "Some supplement labels list a combined blend without showing how much of each ingredient it contains. This makes it difficult to compare the product with another formula or understand the contribution of a particular ingredient. If the quantity is not clear, do not assume that a long list of ingredients means the product is more effective.",
+        "Ask the manufacturer for complete product information or discuss the label with a qualified healthcare professional. Be cautious if the seller refuses to explain the ingredients or makes claims that cannot be checked. A label should help consumers make informed decisions, not require them to guess what is inside the container."
+      ]},
+      { heading: "9. Check allergens and other ingredients", paragraphs: [
+        "Read the complete ingredient and allergen information, including ingredients used for flavour, colour, capsule material or processing where these are declared. A product that appears to contain only a vitamin on the front may include additional components that matter to a person with an allergy or dietary restriction.",
+        "If the information is unclear, contact the manufacturer before using the product. Do not assume that a product is free from an ingredient simply because the ingredient is not prominent on the front label. People with serious allergies or medical restrictions should rely on clear verified information and professional guidance rather than informal comments."
+      ]},
+      { heading: "10. Be cautious about combining supplements", paragraphs: [
+        "Taking several supplements at once can lead to duplicated ingredients or unexpectedly high total intake. A multivitamin, fortified drink and separate single-nutrient product may overlap even when the packaging looks different. Keep a list of all products and ask a qualified professional to review the combination before adding another item.",
+        "More is not automatically better. Some nutrients can be harmful in excessive amounts or may be inappropriate for particular people, and certain ingredients interact with medicines. Do not copy a routine from a social media creator without checking whether it applies to your circumstances and the exact products involved."
+      ]},
+      { heading: "11. Look at storage and after-opening instructions", paragraphs: [
+        "Supplement products can have storage instructions intended to protect quality, such as keeping a lid tightly closed, avoiding moisture or storing away from direct sunlight. Check whether the manufacturer gives a specific period for use after opening. Do not assume that a supplement stays suitable indefinitely because its printed expiry date is still in the future.",
+        "Keep products in their original labelled containers and use a dry, secure location unless the label says otherwise. If the seal is broken, the product has been exposed to unsuitable conditions or the contents appear changed, pause and seek advice. Appearance alone cannot prove that a supplement is safe or effective."
+      ]},
+      { heading: "12. Evaluate claims about testing and certification", paragraphs: [
+        "Words such as 'tested', 'pure' or 'premium' are not enough to establish what was tested, by whom or against which standard. If a product advertises a certification or laboratory result, check whether the claim refers to the exact manufacturer, product and batch. Do not assume that a logo on a website proves independent verification.",
+        "Use official records or contact the responsible organisation when the claim matters to your decision. Be especially cautious of certificates that cannot be traced to an issuing body or that describe a different product. A seller's confidence is not a substitute for evidence, and a certificate does not automatically prove that a supplement is suitable for every person."
+      ]},
+      { heading: "13. Consider medicines, pregnancy and health conditions", paragraphs: [
+        "Some supplement ingredients can affect medicines or may be unsuitable during pregnancy, breastfeeding, before surgery or with particular health conditions. The relevant risks depend on the ingredient, amount, product quality and the individual's circumstances. Tell your healthcare professional what you already use before starting a new product for a symptom or condition.",
+        "Do not stop a prescribed medicine in favour of a supplement or delay assessment because a product is advertised as natural. If you experience an unexpected or severe reaction, seek appropriate medical help and keep the packaging available. General label-reading advice cannot determine whether a specific product is safe for you."
+      ]},
+      { heading: "14. Compare products using reliable information", paragraphs: [
+        "When comparing products, look at the serving size, ingredients, amount per serving, warnings, manufacturer details and evidence for the claims. Compare like with like and avoid assuming that a larger number or longer ingredient list is better. Price and packaging can be useful practical considerations, but they do not prove quality.",
+        "Keep a note of why you are considering the product and what outcome you expect, then discuss it with a qualified professional if it is intended to address a health concern. Avoid products that promise guaranteed cures, rapid transformations or identical results for everyone. Honest product information should make limitations and precautions clear."
+      ]},
+      { heading: "15. A checklist before buying a supplement", paragraphs: [
+        "Before purchasing, confirm the exact product and serving size, read all ingredients and warnings, check manufacturer and registration details where required, and look for realistic evidence rather than dramatic promises. Make sure the source is reputable and the package is sealed. If any important detail is missing, do not assume it will be fine.",
+        "After purchase, follow the label, store the product properly and keep a record of what you use. Ask a pharmacist or another qualified professional if you take medicines, have a health condition or are unsure whether the supplement is appropriate. OCL Health provides general education only and does not endorse a product merely by discussing label literacy."
+      ]}
     ]
   },
   "safe-use-of-over-the-counter-medicines": {
@@ -370,6 +466,38 @@ const articles: Record<string, Article> = {
         "If you are uncertain which product to choose, how to use it or whether it can be combined with something else, ask a pharmacist before taking it. Bring the product packaging or a clear photo and list the medicines and supplements you already use. A brief conversation can help identify important cautions.",
         "OCL Health articles provide general educational information, not a diagnosis or personal treatment plan. Product suitability depends on individual circumstances and the exact formulation. Use professional advice for decisions that require an assessment of your health, and seek urgent care when symptoms may be serious."
       ]}
+      { heading: "8. Do not use someone else's medicine", paragraphs: [
+        "Even if two people describe similar symptoms, their age, allergies, other medicines and medical history may be different. A product that was appropriate for one person may be unsuitable for another. Do not share prescription medicines, and do not assume that an over-the-counter product can be safely recommended to a relative without checking its warnings.",
+        "If you are buying a product for another person, explain their circumstances to the pharmacist as accurately as possible and ask whether the product is appropriate. If the person is a child, older adult, pregnant or breastfeeding, or has a long-term condition, professional advice may be particularly important. Never guess a dose based on another person's package."
+      ]},
+      { heading: "9. Avoid taking a product past its instructions", paragraphs: [
+        "Do not continue using an over-the-counter medicine longer than the label recommends without professional advice. Persistent symptoms may need assessment, and continued self-treatment can delay identifying the cause. A product that helps briefly does not prove that the underlying concern is harmless or that repeated use is appropriate.",
+        "If the label gives a maximum duration or says to seek advice when symptoms persist, follow that instruction. Ask a pharmacist what to do next rather than increasing the amount or adding another product. Seek urgent care for severe or rapidly worsening symptoms, regardless of whether a non-prescription medicine has already been tried."
+      ]},
+      { heading: "10. Check alcohol, driving and daily activities", paragraphs: [
+        "Some medicines can affect alertness, coordination or judgement, and some labels warn about alcohol or particular activities. Read the warnings and ask the pharmacist if you are unsure how they apply to work, driving, operating machinery or caring for others. Do not rely on whether a friend felt sleepy or unaffected by the same brand.",
+        "If you experience dizziness, unusual drowsiness or another unexpected effect, take appropriate precautions and seek professional advice. Do not drive or do hazardous work when the label or a healthcare professional warns against it. The exact precautions depend on the product and the person's circumstances, so check the specific instructions."
+      ]},
+      { heading: "11. Be careful when choosing medicines for children", paragraphs: [
+        "Children are not simply smaller adults. Product selection and instructions may depend on age, weight, formulation and other factors. Check the exact label and ask a pharmacist before using a product for a child, especially when the instructions are unclear or the child is very young. Never estimate a dose from an adult package.",
+        "Use the correct measuring device for liquid medicines and keep all products securely stored. If a child may have swallowed a medicine accidentally, seek urgent advice rather than waiting for symptoms. Keep the packaging available so the product can be identified. General online articles cannot safely calculate an individual child's dose."
+      ]},
+      { heading: "12. Be careful with combination and duplicate products", paragraphs: [
+        "Cold, flu, pain and sleep products may contain overlapping active ingredients even when their brand names and advertised purposes differ. Check the complete ingredient list on every package before combining products. If you cannot tell whether two medicines overlap, ask a pharmacist to review them together.",
+        "Do not take a second product just because the first one did not work quickly. Increasing or duplicating ingredients can raise risk without providing extra benefit. A pharmacist can help interpret the label and discuss whether you need a different next step or a medical assessment."
+      ]},
+      { heading: "13. Check product authenticity and packaging", paragraphs: [
+        "Buy medicines from reputable, authorised sources and inspect the package for a readable label, intact seal, expiry date and expected product details. A registration number printed on a package is not proof by itself, because false sellers may copy legitimate details. Where registration is required, verify it through the relevant official channel.",
+        "Do not use a product whose identity is uncertain, whose packaging appears altered or whose seal is unexpectedly broken. Keep the packaging and receipt if you need to report a concern. Ask a pharmacist or the appropriate regulator how to proceed if you suspect a counterfeit, unregistered or recalled product."
+      ]},
+      { heading: "14. Keep notes if you need professional advice", paragraphs: [
+        "If you contact a pharmacist about a possible side effect or lack of benefit, note the product name, strength, when you used it and what happened. Include other medicines that may be relevant. Accurate details help a professional understand the question; do not delay urgent care in order to collect every detail.",
+        "Keep personal health information private and use a verified healthcare channel. Do not post photos of prescriptions or identifiable records in public forums. A general online article can help you prepare questions, but it cannot review the full situation or provide a diagnosis."
+      ]},
+      { heading: "15. Make safer self-care decisions", paragraphs: [
+        "Before using an over-the-counter medicine, identify the exact product, read the label, check warnings and interactions, and consider whether your symptoms need professional assessment. If you are unsure, pause and ask a pharmacist. Choosing not to take an uncertain product until you have advice is a sensible safety decision.",
+        "After use, follow the directions and seek help if symptoms persist, worsen or match a warning sign. Do not treat advertisements or personal testimonials as a substitute for reliable instructions. OCL Health shares general education and cannot replace individual advice from a qualified healthcare professional."
+      ]}
     ]
   },
   "building-a-personal-medicine-list": {
@@ -408,6 +536,38 @@ const articles: Record<string, Article> = {
       { heading: "7. Make a simple review routine", paragraphs: [
         "Set a reminder to check the list at a practical interval and whenever your medicines change. Compare it with the actual packaging you use at home, because memory and old notes can drift. Remove duplicates only after checking that they are not different formulations or instructions for separate situations.",
         "A short, accurate list is more useful than a complicated record filled with guesses. Start with what you know, mark what needs confirmation and ask a pharmacist or prescriber to help resolve uncertainties. OCL Health offers general education only and cannot verify an individual's medicine regimen."
+      ]}
+      { heading: "8. Add the details that help identify each product", paragraphs: [
+        "Where available, record the full name, strength, dosage form and the person for whom the product was supplied. Note the instructions from the label rather than relying on memory, and mark details that need confirmation. For liquids or products with special storage needs, include a reminder to check the package for the current directions.",
+        "Do not guess missing information or infer the dose from a tablet's appearance. If a label is damaged or the product is difficult to identify, ask the dispensing pharmacy for help. A list with a clearly marked unknown detail is safer than a confident but inaccurate entry."
+      ]},
+      { heading: "9. Separate current, stopped and occasional products", paragraphs: [
+        "Make it clear which medicines are current, which have been stopped and which are used only when needed. Record dates for changes where possible. This helps prevent an old medicine from being mistaken for part of the current plan, especially after a hospital visit or a change of prescriber.",
+        "Do not delete the history in a way that creates confusion about what is being taken now. Keep old entries visibly marked as discontinued and confirm the current list with a healthcare professional. If instructions have changed recently, ask which version should guide your next dose before making an assumption."
+      ]},
+      { heading: "10. Include allergies and important cautions", paragraphs: [
+        "Record known medicine allergies and previous reactions, but distinguish confirmed information from details that still need assessment. If you know the reaction and approximate date, include that context. If the exact medicine is unknown, say so rather than attaching the reaction to a product based on a guess.",
+        "Make sure the list is not the only place where a serious allergy is documented. Share relevant information directly with healthcare professionals and ask how it should be recorded in the formal medical record. Update it when new verified information becomes available, and avoid sharing the list publicly."
+      ]},
+      { heading: "11. Keep the list secure and accessible", paragraphs: [
+        "Choose a format that is easy to update and available when needed, such as a paper copy or a private phone note. Keep a backup where appropriate, but use device security and avoid storing sensitive details in an unprotected public document. If a caregiver helps, agree how updates will be made and who can view the information.",
+        "Do not send the list to unknown contacts or upload it to a website that has no clear privacy information. Share only what is necessary for the healthcare question. A medicine list is useful because it is accurate and accessible to the right people, not because it is widely distributed."
+      ]},
+      { heading: "12. Review the list after hospital or clinic visits", paragraphs: [
+        "After a clinic appointment, hospital discharge or medicine change, compare the new instructions with the list you already have. Ask the treating team to clarify any differences before assuming the old and new directions can be combined. Write down the date and the source of the updated instruction when practical.",
+        "Transitions between services can create confusion if a medicine was started, stopped or temporarily changed. Keep discharge instructions and updated labels available, and ask a pharmacist to help reconcile details when you are unsure. Do not independently restart a stopped medicine just because it remains on an old list."
+      ]},
+      { heading: "13. Use the list when travelling or seeking urgent care", paragraphs: [
+        "When travelling, keep a current list and essential labelled medicines accessible. The list can help you explain what you use if you need to speak with a healthcare professional away from home. Keep it separate from a bag that may be lost, and protect it from being read by people who do not need the information.",
+        "In an emergency, tell the treating team about known allergies and medicines you take, even if you cannot retrieve the list immediately. Do not delay urgent care to find a document. A simple, up-to-date record can support the conversation, but it is not a replacement for assessment or formal medical records."
+      ]},
+      { heading: "14. Ask a pharmacist to check the list", paragraphs: [
+        "A pharmacist may be able to help identify duplicate ingredients, explain unclear instructions and point out information that needs confirmation with a prescriber. Bring the list and, when practical, the actual packages or clear photos. Tell the pharmacist which items may be outdated so they can focus on the current regimen.",
+        "Do not expect a list alone to reveal every interaction or determine whether a medicine is appropriate. Professional review depends on accurate information and the person's circumstances. If a question needs a prescriber or another clinician, ask what the next step should be rather than changing treatment yourself."
+      ]},
+      { heading: "15. Keep the list useful rather than complicated", paragraphs: [
+        "A good medicine list does not need elaborate formatting. It needs accurate names, readable instructions, relevant allergy information, clear dates and a way to tell current items from old ones. Start with what you know, mark uncertainties and ask for help to resolve them at the next appropriate consultation.",
+        "Review it when medicines change and bring it to important healthcare conversations. Keep the information private and update it consistently. OCL Health articles are general education only; a personal list can support communication, but decisions about a particular medicine should be guided by a qualified healthcare professional."
       ]}
     ]
   },
