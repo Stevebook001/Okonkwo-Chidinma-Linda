@@ -1,14 +1,18 @@
 import { ImageResponse } from "next/og";
 import { notFound } from "next/navigation";
 export const runtime = "nodejs";
-export const size={width:1200,height:630};
-export const contentType="image/png";
-const products:Record<string,{name:string;category:string}>={
- "vitamin-c-1000mg":{name:"Vitamin C 1000mg",category:"VITAMINS & SUPPLEMENTS"},
- "paracetamol":{name:"Paracetamol",category:"MEDICINE CATALOGUE"},
- "antacid-suspension":{name:"Antacid Suspension",category:"DIGESTIVE HEALTH"}
+export const size = { width: 1200, height: 630 };
+export const contentType = "image/png";
+const products: Record<string,{title:string;category:string}> = {
+ "vitamin-c-1000mg":{title:"Vitamin C 1000mg",category:"VITAMINS & SUPPLEMENTS"},
+ "paracetamol":{title:"Paracetamol",category:"MEDICINE CATALOGUE"},
+ "antacid-suspension":{title:"Antacid Suspension",category:"DIGESTIVE HEALTH"}
 };
 export default async function Image({params}:{params:Promise<{slug:string}>}) {
  const {slug}=await params;const p=products[slug];if(!p)notFound();
- return new ImageResponse(<div style={{width:"100%",height:"100%",display:"flex",flexDirection:"column",justifyContent:"space-between",padding:"70px",background:"linear-gradient(135deg,#fff 0%,#eff8ff 58%,#cceaff 100%)",color:"#08243d",fontFamily:"Arial"}}><div style={{display:"flex",alignItems:"center",gap:20}}><div style={{width:80,height:80,borderRadius:24,display:"flex",alignItems:"center",justifyContent:"center",background:"#0878df",color:"#fff",fontSize:50}}>✚</div><div style={{fontSize:34,fontWeight:800}}>OCL <span style={{color:"#0878df"}}>Health</span></div></div><div style={{display:"flex",flexDirection:"column",gap:20}}><div style={{fontSize:24,color:"#0878df",fontWeight:700,letterSpacing:3}}>{p.category}</div><div style={{fontSize:62,fontWeight:800,lineHeight:1.1}}>{p.name}</div><div style={{fontSize:26,color:"#49657c"}}>Product catalogue • Compliance review required</div></div><div style={{fontSize:23,color:"#0878df"}}>shop.ocl.it.com</div></div>,size);
+ return new ImageResponse(<div style={{width:"100%",height:"100%",display:"flex",flexDirection:"column",justifyContent:"space-between",padding:"66px",background:"linear-gradient(135deg,#ffffff 0%,#eef8ff 58%,#cdeaff 100%)",color:"#08243d",fontFamily:"Arial,sans-serif"}}>
+ <div style={{display:"flex",alignItems:"center",gap:"20px"}}><div style={{display:"flex",width:"76px",height:"76px",borderRadius:"22px",alignItems:"center",justifyContent:"center",background:"#0878df",color:"#fff",fontSize:"28px",fontWeight:800}}>OCL</div><div style={{display:"flex",fontSize:"32px",fontWeight:800}}>OCL Health</div></div>
+ <div style={{display:"flex",flexDirection:"column",gap:"18px"}}><div style={{display:"flex",fontSize:"22px",color:"#0878df",fontWeight:800,letterSpacing:"3px"}}>{p.category}</div><div style={{display:"flex",fontSize:"58px",lineHeight:1.1,fontWeight:800}}>{p.title}</div><div style={{display:"flex",fontSize:"25px",color:"#49657c"}}>Verified information. Responsible health education.</div></div>
+ <div style={{display:"flex",justifyContent:"space-between",fontSize:"22px",color:"#0878df"}}><div style={{display:"flex"}}>shop.ocl.it.com</div><div style={{display:"flex"}}>OCL Health · GitHub</div></div>
+ </div>,{...size,headers:{"Cache-Control":"public, max-age=3600, s-maxage=86400"}});
 }
