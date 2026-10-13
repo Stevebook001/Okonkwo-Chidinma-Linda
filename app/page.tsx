@@ -1,6 +1,7 @@
 import { headers } from "next/headers";
 import ContactForm from "@/app/ContactForm";
 import NewsletterForm from "@/app/NewsletterForm";
+import AdSenseLoader from "@/app/AdSenseLoader";
 
 const products = [
   ["Vitamin C 1000mg", "Vitamins & Supplements", "vitamin-c-1000mg", "/products/vitamin-c.svg"],
@@ -32,6 +33,7 @@ function HostBanner({ title, description, eyebrow }: { title: string; descriptio
 function MainSite() {
   return (
     <>
+      <AdSenseLoader clientId={process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID} />
       <header className="nav">
         <a className="brand" href="/"><span className="brandMark">✚</span><span>OCL <b>Health</b></span></a>
         <nav>
@@ -106,6 +108,7 @@ function BlogPortal() {
   ];
   return (
     <>
+      <AdSenseLoader clientId={process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID} />
       <header className="nav">
         <a className="brand" href="https://ocl.it.com"><span className="brandMark">✚</span><span>OCL <b>Health</b></span></a>
         <nav><a href="https://ocl.it.com/#about">About OCL</a><a href="https://shop.ocl.it.com">Marketplace</a><a className="navButton" href="mailto:me.ocl.it.com@gmail.com">Contact</a></nav>
