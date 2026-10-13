@@ -252,7 +252,7 @@ const articles: Record<string, Article> = {
       { heading: "8. Dispose of unwanted products responsibly", paragraphs: [
         "Do not keep expired or unneeded medicines indefinitely, and do not share leftover prescription medicines with friends or relatives. Ask a pharmacy or local health authority about a suitable take-back or disposal route in your area. Disposal instructions can vary by product, so do not flush medicines or pour them into a drain unless official instructions specifically say to.",
         "Before disposal, check whether the product is subject to a recall or whether a pharmacist needs its packaging details to investigate a concern. Keep unwanted medicines secure until they can be handled safely. This guide is general education only; product-specific storage and disposal advice should come from the label, pharmacist or relevant authority."
-      ]}
+      ]},
       { heading: "8. Create a household medicine check routine", paragraphs: [
         "Choose a regular moment to review the medicines stored at home, such as when organising a cupboard or collecting a repeat prescription. Check labels, expiry dates, packaging and whether the product is still needed. Keep products that need professional advice separate from items you know are current, and avoid making a clinical decision from appearance alone.",
         "A simple checklist can help household members remember to put products away, close child-resistant caps correctly and keep instructions with the right package. The goal is not to inspect medicines obsessively, but to make safe storage an ordinary habit. If you find a product whose identity or condition is uncertain, ask a pharmacist instead of guessing."
@@ -323,7 +323,7 @@ const articles: Record<string, Article> = {
       { heading: "7. Make the next visit easier", paragraphs: [
         "After the consultation, update your medicine list and note any changes that were recommended by your healthcare team. Keep the relevant leaflet and record the date of the discussion. If a medicine is changed or stopped, update the list rather than leaving old information mixed with current instructions.",
         "Preparation does not need to be complicated. A phone note, paper list or folder of labelled product photographs may be enough. Choose a method that protects your privacy and is easy to update. Share the information securely with professionals who need it, not in public comments or untrusted online forms."
-      ]}
+      ]},
       { heading: "8. Prepare for a medicine review", paragraphs: [
         "If you take several medicines, ask whether a medication review would be useful. Bring your current list and the actual packages or clear photographs if possible. Mention medicines prescribed by different clinics, products bought without a prescription and supplements, because a review based on only part of the list may miss duplicate ingredients or relevant interactions.",
         "A review is also an opportunity to explain practical problems, such as difficulty swallowing a formulation, remembering a schedule, opening packaging or paying for a medicine. Do not stop or change treatment simply because a review is planned. The professional can discuss options appropriate to your circumstances and coordinate with the prescriber when needed."
@@ -394,7 +394,7 @@ const articles: Record<string, Article> = {
       { heading: "7. Keep a record of what you use", paragraphs: [
         "Maintain a list of supplements with their full names, ingredients, amounts and how often you use them. Bring it to appointments alongside your medicine list. This can help a professional identify duplicated ingredients and consider whether the product is relevant to your circumstances.",
         "Review the list when you start or stop a product and check labels when a formula changes. Do not take multiple products with overlapping ingredients without understanding the combined amount. General online information cannot determine what is right for an individual, so use labels as a starting point for a conversation with a qualified professional."
-      ]}
+      ]},
       { heading: "8. Understand proprietary blends and missing quantities", paragraphs: [
         "Some supplement labels list a combined blend without showing how much of each ingredient it contains. This makes it difficult to compare the product with another formula or understand the contribution of a particular ingredient. If the quantity is not clear, do not assume that a long list of ingredients means the product is more effective.",
         "Ask the manufacturer for complete product information or discuss the label with a qualified healthcare professional. Be cautious if the seller refuses to explain the ingredients or makes claims that cannot be checked. A label should help consumers make informed decisions, not require them to guess what is inside the container."
@@ -465,7 +465,7 @@ const articles: Record<string, Article> = {
       { heading: "7. Ask a pharmacist before guessing", paragraphs: [
         "If you are uncertain which product to choose, how to use it or whether it can be combined with something else, ask a pharmacist before taking it. Bring the product packaging or a clear photo and list the medicines and supplements you already use. A brief conversation can help identify important cautions.",
         "OCL Health articles provide general educational information, not a diagnosis or personal treatment plan. Product suitability depends on individual circumstances and the exact formulation. Use professional advice for decisions that require an assessment of your health, and seek urgent care when symptoms may be serious."
-      ]}
+      ]},
       { heading: "8. Do not use someone else's medicine", paragraphs: [
         "Even if two people describe similar symptoms, their age, allergies, other medicines and medical history may be different. A product that was appropriate for one person may be unsuitable for another. Do not share prescription medicines, and do not assume that an over-the-counter product can be safely recommended to a relative without checking its warnings.",
         "If you are buying a product for another person, explain their circumstances to the pharmacist as accurately as possible and ask whether the product is appropriate. If the person is a child, older adult, pregnant or breastfeeding, or has a long-term condition, professional advice may be particularly important. Never guess a dose based on another person's package."
@@ -536,7 +536,7 @@ const articles: Record<string, Article> = {
       { heading: "7. Make a simple review routine", paragraphs: [
         "Set a reminder to check the list at a practical interval and whenever your medicines change. Compare it with the actual packaging you use at home, because memory and old notes can drift. Remove duplicates only after checking that they are not different formulations or instructions for separate situations.",
         "A short, accurate list is more useful than a complicated record filled with guesses. Start with what you know, mark what needs confirmation and ask a pharmacist or prescriber to help resolve uncertainties. OCL Health offers general education only and cannot verify an individual's medicine regimen."
-      ]}
+      ]},
       { heading: "8. Add the details that help identify each product", paragraphs: [
         "Where available, record the full name, strength, dosage form and the person for whom the product was supplied. Note the instructions from the label rather than relying on memory, and mark details that need confirmation. For liquids or products with special storage needs, include a reminder to check the package for the current directions.",
         "Do not guess missing information or infer the dose from a tablet's appearance. If a label is damaged or the product is difficult to identify, ask the dispensing pharmacy for help. A list with a clearly marked unknown detail is safer than a confident but inaccurate entry."
