@@ -594,7 +594,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: article ? `${article.title} | OCL Health` : "Health article | OCL Health",
     description: article?.description ?? "Health education from OCL Health.",
-    keywords: article?.keywords ?? ["OCL Health", "pharmacy", "health education"],
+    keywords: ARTICLE_KEYWORDS[slug] ?? article?.keywords ?? ["OCL Health", "pharmacy", "health education"],
     alternates: { canonical: `https://blogs.ocl.it.com/articles/${slug}` },
     openGraph: { title: article?.title ?? "OCL Health article", description: article?.description ?? "Health education from OCL Health.", url: `https://blogs.ocl.it.com/articles/${slug}`, siteName: "OCL Health", type: "article", images: [{ url: `/articles/${slug}/opengraph-image`, width: 1200, height: 630, alt: article?.title ?? "OCL Health article" }] },
     twitter: { card: "summary_large_image", title: article?.title ?? "OCL Health article", description: article?.description, images: [`/articles/${slug}/opengraph-image`] }
