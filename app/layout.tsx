@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { headers } from "next/headers";
+import AnalyticsTracker from "./AnalyticsTracker";
 
 const configs: Record<string,{title:string;description:string}> = {
   "www.ocl.it.com": { title:"OCL Health | Pharmacy, Wellness & Health Education", description:"OCL Health — trusted pharmacy, chemistry, wellness and health education, with a growing marketplace and digital health platform." },
@@ -43,5 +44,5 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function RootLayout({children}:{children:React.ReactNode}) {
-  return <html lang="en"><body>{children}</body></html>;
+  return <html lang="en"><body><AnalyticsTracker />{children}</body></html>;
 }
