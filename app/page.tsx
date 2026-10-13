@@ -12,6 +12,11 @@ const articles = [
   ["How to read a medicine label safely", "Medicine education", "read-a-medicine-label", "/blog/medicine-label.svg"],
   ["Questions to ask your pharmacist before using a medicine", "Pharmacy tips", "questions-for-your-pharmacist", "/blog/pharmacist-conversation.svg"],
   ["Building simple, sustainable nutrition habits", "Nutrition", "sustainable-nutrition-habits", "/blog/nutrition-habits.svg"],
+  ["How to store medicines safely at home", "Medicine safety", "storing-medicines-safely", "/blog/medicine-storage.svg"],
+  ["How to prepare for a useful pharmacy consultation", "Pharmacy tips", "prepare-for-pharmacist-visit", "/blog/pharmacy-visit.svg"],
+  ["How to read a vitamin and supplement label", "Health literacy", "understanding-supplement-labels", "/blog/supplement-label.svg"],
+  ["Using over-the-counter medicines more safely", "Medicine education", "safe-use-of-over-the-counter-medicines", "/blog/otc-medicine-safety.svg"],
+  ["How to make a useful personal medicine list", "Health literacy", "building-a-personal-medicine-list", "/blog/medicine-list.svg"],
 ];
 
 function HostBanner({ title, description, eyebrow }: { title: string; description: string; eyebrow: string }) {
@@ -93,6 +98,11 @@ function BlogPortal() {
     { category: "MEDICINE EDUCATION", image: "/blog/medicine-label.svg", title: "How to read a medicine label safely", excerpt: "Learn where to look for the active ingredient, strength, directions, warnings, expiry date and storage guidance.", slug: "read-a-medicine-label" },
     { category: "PHARMACY TIPS", image: "/blog/pharmacist-conversation.svg", title: "Questions to ask your pharmacist before using a medicine", excerpt: "A practical checklist to help you understand what a medicine is for, how to use it, and when to seek professional advice.", slug: "questions-for-your-pharmacist" },
     { category: "EVERYDAY WELLNESS", image: "/blog/nutrition-habits.svg", title: "Building simple, sustainable nutrition habits", excerpt: "Small, realistic ways to make balanced food choices part of everyday life without chasing miracle claims.", slug: "sustainable-nutrition-habits" },
+    { category: "MEDICINE SAFETY", image: "/blog/medicine-storage.svg", title: "How to store medicines safely at home", excerpt: "Protect medicine quality and reduce accidental use with practical storage habits.", slug: "storing-medicines-safely" },
+    { category: "PHARMACY TIPS", image: "/blog/pharmacy-visit.svg", title: "How to prepare for a useful pharmacy consultation", excerpt: "Prepare your questions and medicine list for a clearer conversation with a pharmacist.", slug: "prepare-for-pharmacist-visit" },
+    { category: "HEALTH LITERACY", image: "/blog/supplement-label.svg", title: "How to read a vitamin and supplement label", excerpt: "Understand ingredients, serving sizes, warnings and marketing claims.", slug: "understanding-supplement-labels" },
+    { category: "MEDICINE EDUCATION", image: "/blog/otc-medicine-safety.svg", title: "Using over-the-counter medicines more safely", excerpt: "Check ingredients, directions and warnings before using non-prescription medicines.", slug: "safe-use-of-over-the-counter-medicines" },
+    { category: "HEALTH LITERACY", image: "/blog/medicine-list.svg", title: "How to make a useful personal medicine list", excerpt: "Keep a current record to support clearer healthcare conversations.", slug: "building-a-personal-medicine-list" },
   ];
   return (
     <>
@@ -105,7 +115,7 @@ function BlogPortal() {
         <aside className="blogHeroCard"><span className="blogBadge">OCL EDITORIAL</span><div className="blogIllustration">✚</div><h2>Knowledge is a good place to start.</h2><p>Evidence-aware, practical education — never a substitute for personal medical advice.</p></aside>
       </section>
       <section className="section" id="latest">
-        <div className="sectionHead"><div><span className="eyebrow">LATEST GUIDES</span><h2>Start with the essentials.</h2></div><span className="blogCount">3 editorial guides</span></div>
+        <div className="sectionHead"><div><span className="eyebrow">LATEST GUIDES</span><h2>Start with the essentials.</h2></div><span className="blogCount">8 editorial guides</span></div>
         <div className="articleGrid">{posts.map((post, index) => <article className="article blogArticle" key={post.slug}><div className="articleImage blogArtImage"><img src={post.image} alt={post.title} loading="lazy" /><span>0{index + 1}</span></div><span>{post.category}</span><h3>{post.title}</h3><p>{post.excerpt}</p><a href={`/articles/${post.slug}`}>Read guide →</a></article>)}</div>
       </section>
       <section className="blogTopics"><span className="eyebrow">EXPLORE BY TOPIC</span><div className="topicRow">{["Medicine education","Pharmacy conversations","Nutrition","Everyday wellness","Product safety","Health literacy"].map(topic => <span key={topic}>{topic}</span>)}</div></section>
