@@ -1,5 +1,20 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { createClient } from "@supabase/supabase-js";
+
+export const dynamic = "force-dynamic";
+
+type CountResult = { label: string; count: number | null; error?: string };
+
+async function readCount(client: ReturnType<typeof createClient>, table: string, label: string): Promise<CountResult> {
+  try {
+    const { count, error } = await client.from(table).select("*", { count: "exact", head: true });
+    if (error) return { label, count: null, error: error.message };
+    return { label, count: count ?? 0 };
+  } catch (error) {
+    return { label, count: null, error: error instanceof Error ? error.message : "Unknown database error" };
+  }
+}
 
 export const metadata: Metadata = {
   title: "OCL Admin Control Center",
@@ -18,7 +33,34 @@ const modules = [
   { title: "Email and newsletter", status: "Sender verified", detail: "Resend sending DNS is verified and the sender key is stored in Vercel. Newsletter storage and confirmation still need Supabase.", href: "https://ocl.it.com/#contact", action: "Open contact section" }
 ];
 
-export default function Admin() {
+export default async function Admin() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const secretKey = process.env.SUPABASE_SECRET_KEY;
+  let databaseConnected = false;
+  let databaseMessage = "Missing server-side Supabase configuration";
+  let counts: CountResult[] = [];
+
+  if (supabaseUrl && secretKey) {
+    const client = createClient(supabaseUrl, secretKey, { auth: { persistSession: false, autoRefreshToken: false } });
+    const tables = [
+      ["profiles", "Customer profiles"],
+      ["products", "Product records"],
+      ["posts", "Blog posts"],
+      ["orders", "Orders"],
+      ["newsletter_subscribers", "Newsletter subscribers"],
+      ["analytics_events", "Tracked site events"],
+      ["article_submissions", "Article submissions"],
+      ["refund_requests", "Refund requests"],
+    ];
+    counts = await Promise.all(tables.map(([table, label]) => readCount(client, table, label)));
+    const failed = counts.filter((item) => item.error);
+    databaseConnected = failed.length === 0;
+    databaseMessage = databaseConnected
+      ? "Connected • live row counts from OCL Supabase"
+      : `Database credentials exist, but ${failed.length} table check(s) failed. Review schema permissions and migrations.`;
+  }
+
+  const metricValue = (label: string) => counts.find((item) => item.label === label);
   return <main className="adminDashboard">
     <aside className="adminSidebar"><a className="brand" href="https://ocl.it.com"><span className="brandMark">✚</span><span>OCL <b>Health</b></span></a><span className="adminSidebarLabel">CONTROL CENTER</span><a className="active" href="#overview">Overview</a><a href="#modules">Platform modules</a><a href="https://blogs.ocl.it.com">Health blog ↗</a><a href="https://shop.ocl.it.com">Marketplace ↗</a><a href="https://ocl.it.com/legal/drug-policy">Drug policy ↗</a><a href="https://ocl.it.com/legal/kedi-seller-policy">Kedi policy ↗</a><div className="adminSidebarFoot">Private workspace<br/>Access protected</div></aside>
     <div className="adminMain">
@@ -27,8 +69,25 @@ export default function Admin() {
       <section className="adminReadiness">
         <article><span className="adminStatusDot good"/> <span>Domain and Vercel</span><strong>Connected</strong><small>Custom domains verified in project</small></article>
         <article><span className="adminStatusDot good"/> <span>Resend sender</span><strong>Verified</strong><small>Outgoing email authentication ready</small></article>
-        <article><span className="adminStatusDot pending"/> <span>Database and Auth</span><strong>Not connected</strong><small>Dedicated Supabase project required</small></article>
+        <article><span className={databaseConnected ? "adminStatusDot good" : "adminStatusDot pending"}/> <span>Database and Auth</span><strong>{databaseConnected ? "Connected" : secretKey ? "Needs review" : "Key missing"}</strong><small>{databaseMessage}</small></article>
         <article><span className="adminStatusDot pending"/> <span>Commerce</span><strong>Disabled</strong><small>Do not accept orders yet</small></article>
+      </section>
+      <section className="adminModulesHead" id="analytics">
+        <div><span className="eyebrow">LIVE OPERATIONS DATA</span><h2>Analytics and platform health</h2><p>Database totals are queried live on page load. Search, traffic and advertising metrics are only shown when their own provider connections are configured; no sample numbers are invented.</p></div>
+      </section>
+      <section className="adminReadiness adminAnalyticsGrid">
+        {counts.map((item) => <article key={item.label}><span className={item.error ? "adminStatusDot pending" : "adminStatusDot good"}/> <span>{item.label}</span><strong>{item.count === null ? "Unavailable" : item.count.toLocaleString()}</strong><small>{item.error ? "Check database schema and permissions" : "Live database count"}</small></article>)}
+        {!secretKey && <article><span className="adminStatusDot pending"/> <span>Database metrics</span><strong>Not connected</strong><small>Add SUPABASE_SECRET_KEY in Vercel</small></article>}
+      </section>
+      <section className="adminModulesHead">
+        <div><span className="eyebrow">EXTERNAL ANALYTICS</span><h2>Search, traffic and monetisation</h2><p>These links open the provider dashboards. Full in-admin traffic metrics need provider API credentials; connecting a ChatGPT plugin does not automatically expose its credentials to this website.</p></div>
+      </section>
+      <section className="adminModuleGrid">
+        <article className="adminModule"><div className="adminModuleTop"><span className="adminModuleNumber">01</span><span className="adminTag pendingTag">Search Console</span></div><h3>Google Search Console</h3><p>Track clicks, impressions, indexing, search queries and sitemap status. OCL's domain property is connected in the external SEO workspace, but direct website dashboard API access still needs Google OAuth or service-account credentials.</p><a href="https://search.google.com/search-console?resource_id=sc-domain%3Aocl.it.com" target="_blank" rel="noreferrer">Open Search Console ↗</a></article>
+        <article className="adminModule"><div className="adminModuleTop"><span className="adminModuleNumber">02</span><span className="adminTag pendingTag">Check setup</span></div><h3>Vercel Web Analytics</h3><p>Page views, routes, referrers, devices and countries. Enable Web Analytics for the Vercel project and configure a server-side Vercel API token before showing metrics here.</p><a href="https://vercel.com/ibiribigbe-ibrahim-akannis-projects/ocl/analytics" target="_blank" rel="noreferrer">Open Vercel Analytics ↗</a></article>
+        <article className="adminModule"><div className="adminModuleTop"><span className="adminModuleNumber">03</span><span className="adminTag pendingTag">Credentials needed</span></div><h3>Google Analytics 4</h3><p>Sessions, engaged users, landing pages and conversion events. Requires a GA4 property ID plus server-side Google credentials with read access to that property.</p><a href="https://analytics.google.com/" target="_blank" rel="noreferrer">Open Google Analytics ↗</a></article>
+        <article className="adminModule"><div className="adminModuleTop"><span className="adminModuleNumber">04</span><span className="adminTag pendingTag">Credentials needed</span></div><h3>Ahrefs SEO</h3><p>Backlinks, referring domains, keyword visibility and competitor research. The connected Ahrefs workspace can be used for analysis; direct dashboard widgets require a supported API plan and API token.</p><a href="https://app.ahrefs.com/" target="_blank" rel="noreferrer">Open Ahrefs ↗</a></article>
+        <article className="adminModule"><div className="adminModuleTop"><span className="adminModuleNumber">05</span><span className="adminTag pendingTag">Not approved yet</span></div><h3>Google AdSense</h3><p>Revenue, impressions, RPM and ad status are available only after publisher approval and linking the approved publisher account. No ad code or revenue claims are added before approval.</p><a href="https://adsense.google.com/" target="_blank" rel="noreferrer">Open AdSense ↗</a></article>
       </section>
       <section id="modules" className="adminModulesHead"><div><span className="eyebrow">WORKSPACES</span><h2>Platform modules</h2><p>Each module shows its real integration status; no demo sales or fake analytics are displayed.</p></div></section>
       <section className="adminModuleGrid">{modules.map((module, index) => <article className="adminModule" key={module.title}><div className="adminModuleTop"><span className="adminModuleNumber">{String(index+1).padStart(2,"0")}</span><span className={module.status === "Sender verified" || module.status === "Static guides live" ? "adminTag goodTag" : "adminTag pendingTag"}>{module.status}</span></div><h3>{module.title}</h3><p>{module.detail}</p><Link href={module.href}>{module.action} →</Link></article>)}</section>
