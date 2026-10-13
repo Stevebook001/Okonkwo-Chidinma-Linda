@@ -2,6 +2,7 @@ import { headers } from "next/headers";
 import ContactForm from "@/app/ContactForm";
 import NewsletterForm from "@/app/NewsletterForm";
 import AdSenseLoader from "@/app/AdSenseLoader";
+import DocsHome from "@/app/docs/DocsHome";
 
 const products = [
   ["Vitamin C 1000mg", "Vitamins & Supplements", "vitamin-c-1000mg", "/products/vitamin-c.svg"],
@@ -89,7 +90,7 @@ function MainSite() {
 
       <section id="contact" className="contact section"><span className="eyebrow">CONTACT</span><h2>OCL is being built for a real healthcare team.</h2><p>Questions, product enquiries and partnership requests will eventually flow through the OCL support system.</p><ContactForm/></section>
 
-      <footer><div className="footerTop"><div><a className="brand" href="/"><span className="brandMark">✚</span><span>OCL <b>Health</b></span></a><p>Pharmacy, chemistry, wellness and health education.</p></div><div><b>Explore</b><a href="#marketplace">Marketplace</a><a href="https://blogs.ocl.it.com">Health Blog</a><a href="https://developers.ocl.it.com">Developers</a></div><div><b>Platform</b><a href="https://account.ocl.it.com">Account</a><a href="https://admin.ocl.it.com">Admin</a><a href="https://docs.ocl.it.com">Docs</a></div><div><b>Legal</b><a href="/legal/privacy">Privacy</a><a href="/legal/terms">Terms</a><a href="/legal/refund">Refund policy</a><a href="/legal/drug-policy">Drug policy</a><a href="/legal/kedi-seller-policy">Kedi seller policy</a></div></div><div className="footerBottom">© 2026 OCL Health • Built with care • Health information is educational and not a substitute for professional medical advice.</div></footer>
+      <footer><div className="footerTop"><div><a className="brand" href="/"><span className="brandMark">✚</span><span>OCL <b>Health</b></span></a><p>Pharmacy, chemistry, wellness and health education.</p></div><div><b>Explore</b><a href="#marketplace">Marketplace</a><a href="https://blogs.ocl.it.com">Health Blog</a><a href="https://developers.ocl.it.com">Developers</a></div><div><b>Platform</b><a href="https://account.ocl.it.com">Account</a><a href="https://admin.ocl.it.com">Admin</a><a href="https://docs.ocl.it.com">Docs</a></div><div><b>Legal</b><a href="/legal/privacy">Privacy</a><a href="/legal/terms">Terms</a><a href="/legal/refund">Refund policy</a><a href="/legal/drug-policy">Drug policy</a><a href="/legal/kedi-seller-policy">Kedi seller policy</a></div></div><div className="footerBottom">© 2026 OCL Health • Built with care • Health information is educational and not a substitute for professional medical advice. <a href="https://github.com/Stevebook001/Okonkwo-Chidinma-Linda" target="_blank" rel="noreferrer">GitHub source ↗</a></div></footer>
       <button className="aiWidget" type="button" title="OCL AI is being built">✦ <span>OCL AI</span></button>
     </>
   );
@@ -147,6 +148,7 @@ function Portal({ host }: { host: string }) {
 
 export default async function Home() {
   const host = (await headers()).get("host")?.split(":")[0] ?? "www.ocl.it.com";
+  if (host === "docs.ocl.it.com") return <DocsHome />;
   if (host !== "ocl.it.com" && host !== "www.ocl.it.com") return <Portal host={host}/>;
   return <main><MainSite /></main>;
 }
