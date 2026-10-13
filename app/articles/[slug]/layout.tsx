@@ -4,11 +4,13 @@ const articles: Record<string, { title: string; description: string; cover: stri
   "read-a-medicine-label": {
     title: "How to read a medicine label safely",
     description: "A practical guide to understanding active ingredients, strengths, directions, warnings, storage and expiry information on medicine labels.",
+    keywords: ["how to read a medicine label", "active ingredients", "medicine strength", "medicine warnings", "expiry date"],
     cover: "/blog/medicine-label.svg",
   },
   "questions-for-your-pharmacist": {
     title: "Questions to ask your pharmacist before using a medicine",
     description: "A detailed checklist for discussing purpose, instructions, interactions, side effects, storage, affordability and follow-up with a pharmacist.",
+    keywords: ["questions to ask a pharmacist", "medicine interactions", "pharmacy consultation", "medicine side effects"],
     cover: "/blog/pharmacist-conversation.svg",
   },
   "sustainable-nutrition-habits": {
