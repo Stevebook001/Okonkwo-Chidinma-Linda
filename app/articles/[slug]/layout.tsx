@@ -75,6 +75,11 @@ export default async function ArticleLayout({
         author: {
           "@type": "Organization",
           name: "OCL Health Editorial",
+          url: "https://ocl.it.com",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://ocl.it.com/icon.svg",
+          },
         },
         publisher: {
           "@type": "Organization",

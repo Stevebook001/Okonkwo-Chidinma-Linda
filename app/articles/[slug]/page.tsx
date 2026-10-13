@@ -215,7 +215,7 @@ const articles: Record<string, Article> = {
   "storing-medicines-safely": {
     category: "MEDICINE SAFETY",
     title: "How to store medicines safely at home",
-    description: "Learn how to read storage instructions, protect medicines from heat and moisture, keep them away from children, and recognise when storage may have affected a product.",
+    description: "Learn how to store medicines safely, protect them from heat and moisture, keep them away from children, and follow expiry and storage instructions.",
     keywords: ["how to store medicines safely", "medicine storage at home", "medicine safety", "medicine expiry date", "keep medicines away from children"],
     cover: "/blog/medicine-storage.svg",
     intro: "Good medicine storage helps protect product quality and reduces accidental use by children or other household members. The correct conditions depend on the specific product, so the label, leaflet and pharmacist's instructions should always take priority over general rules.",
