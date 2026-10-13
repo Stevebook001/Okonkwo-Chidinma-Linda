@@ -26,7 +26,7 @@ const articles: Record<string, { title: string; description: string; cover: stri
     keywords: ["how to store medicines safely", "medicine storage at home", "medicine safety", "medicine expiry date"],
   },
   "prepare-for-pharmacist-visit": {
-    title: "How to prepare for a useful pharmacy consultation",
+    title: "Prepare for a useful pharmacy consultation",
     description: "A practical checklist for preparing medicine lists, explaining concerns, asking questions and following up after speaking with a pharmacist.",
     cover: "/blog/pharmacy-visit.svg",
     keywords: ["prepare for pharmacist appointment", "pharmacist consultation questions", "medicine list", "medication review"],

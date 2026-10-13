@@ -289,7 +289,7 @@ const articles: Record<string, Article> = {
   },
   "prepare-for-pharmacist-visit": {
     category: "PHARMACY TIPS",
-    title: "How to prepare for a useful pharmacy consultation",
+    title: "Prepare for a useful pharmacy consultation",
     description: "A practical checklist for preparing medicine lists, explaining concerns, asking questions and following up after speaking with a pharmacist.",
     keywords: ["prepare for pharmacist appointment", "pharmacist consultation questions", "medicine list", "pharmacy advice", "medication review"],
     cover: "/blog/pharmacy-visit.svg",
