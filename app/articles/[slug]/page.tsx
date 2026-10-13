@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import AdSenseLoader from "@/app/AdSenseLoader";
 
 type Section = { heading: string; paragraphs: string[] };
 type Article = { category: string; title: string; description: string; keywords?: string[]; cover: string; intro: string; sections: Section[]; reviewed: string };
@@ -436,6 +437,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   const wordCount = (article.intro + " " + article.sections.flatMap(s => [s.heading, ...s.paragraphs]).join(" ")).trim().split(/\s+/).length;
   return (
     <main className="articlePage">
+      <AdSenseLoader clientId={process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID} />
       <header className="portalNav"><Link className="brand" href="https://ocl.it.com"><span className="brandMark">✚</span><span>OCL <b>Health</b></span></Link><Link href="/">All health articles →</Link></header>
       <article className="articleContent">
         <span className="eyebrow">{article.category}</span><h1>{article.title}</h1><p className="articleLead">{article.intro}</p>
