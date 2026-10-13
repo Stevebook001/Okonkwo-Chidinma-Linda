@@ -6,7 +6,12 @@ export const contentType = "image/png";
 const articles: Record<string,{title:string;category:string}> = {
  "read-a-medicine-label": {title:"How to read a medicine label safely",category:"MEDICINE EDUCATION"},
  "questions-for-your-pharmacist": {title:"Questions to ask your pharmacist",category:"PHARMACY TIPS"},
- "sustainable-nutrition-habits": {title:"Building sustainable nutrition habits",category:"EVERYDAY WELLNESS"}
+ "sustainable-nutrition-habits": {title:"Building sustainable nutrition habits",category:"EVERYDAY WELLNESS"},
+ "storing-medicines-safely": {title:"How to store medicines safely at home",category:"MEDICINE SAFETY"},
+ "prepare-for-pharmacist-visit": {title:"Prepare for a useful pharmacy consultation",category:"PHARMACY TIPS"},
+ "understanding-supplement-labels": {title:"How to read a vitamin and supplement label",category:"HEALTH LITERACY"},
+ "safe-use-of-over-the-counter-medicines": {title:"Using over-the-counter medicines more safely",category:"MEDICINE EDUCATION"},
+ "building-a-personal-medicine-list": {title:"How to make a useful personal medicine list",category:"HEALTH LITERACY"},
 };
 export default async function Image({params}:{params:Promise<{slug:string}>}) {
  const {slug}=await params; const a=articles[slug]; if(!a) notFound();
