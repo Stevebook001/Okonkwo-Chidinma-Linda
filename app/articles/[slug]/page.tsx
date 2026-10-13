@@ -253,35 +253,35 @@ const articles: Record<string, Article> = {
         "Do not keep expired or unneeded medicines indefinitely, and do not share leftover prescription medicines with friends or relatives. Ask a pharmacy or local health authority about a suitable take-back or disposal route in your area. Disposal instructions can vary by product, so do not flush medicines or pour them into a drain unless official instructions specifically say to.",
         "Before disposal, check whether the product is subject to a recall or whether a pharmacist needs its packaging details to investigate a concern. Keep unwanted medicines secure until they can be handled safely. This guide is general education only; product-specific storage and disposal advice should come from the label, pharmacist or relevant authority."
       ]},
-      { heading: "8. Create a household medicine check routine", paragraphs: [
+      { heading: "9. Create a household medicine check routine", paragraphs: [
         "Choose a regular moment to review the medicines stored at home, such as when organising a cupboard or collecting a repeat prescription. Check labels, expiry dates, packaging and whether the product is still needed. Keep products that need professional advice separate from items you know are current, and avoid making a clinical decision from appearance alone.",
         "A simple checklist can help household members remember to put products away, close child-resistant caps correctly and keep instructions with the right package. The goal is not to inspect medicines obsessively, but to make safe storage an ordinary habit. If you find a product whose identity or condition is uncertain, ask a pharmacist instead of guessing."
       ]},
-      { heading: "9. Avoid mixing medicines into shared containers", paragraphs: [
+      { heading: "10. Avoid mixing medicines into shared containers", paragraphs: [
         "Do not combine loose tablets from different boxes into one jar just to save space. If a tablet is separated from its packaging, it may be difficult to identify its name, strength, expiry date or storage requirements. A container that once held one medicine may later be mistaken for another product, especially when several people share a home.",
         "If a pharmacist has prepared a labelled organiser for a specific person, follow the instructions given for that organiser and ask if you are unsure how it should be maintained. Keep the original packs available when appropriate. Never rely on tablet colour, shape or a photograph alone to confirm an uncertain medicine."
       ]},
-      { heading: "10. Be careful with medicines in bags and bedside drawers", paragraphs: [
+      { heading: "11. Be careful with medicines in bags and bedside drawers", paragraphs: [
         "Handbags, school bags, travel bags and bedside drawers can be easy places for children or visitors to find medicines. Heat inside a vehicle or a bag left in sunlight may also affect some products. After carrying a medicine, return it to its usual secure storage location rather than leaving it in a pocket or open bag.",
         "When travelling with another person's medicine, keep the label readable and make sure the responsible adult knows where it is stored. Do not leave medicines unattended in shared spaces. If a child may have accessed a product, treat the situation seriously and seek urgent advice from an appropriate healthcare professional or emergency service."
       ]},
-      { heading: "11. Understand instructions after opening", paragraphs: [
+      { heading: "12. Understand instructions after opening", paragraphs: [
         "Some products have special instructions once a bottle, tube or blister is opened. The period for use after opening may be shorter than the printed expiry date, and storage instructions may change. Look for phrases about discarding after a set period, keeping the cap closed, avoiding contamination or using a product only for one person.",
         "If the opening date matters, write it on the package where it will not cover important information. If you cannot remember when a product was opened, do not invent a date or assume it remains suitable. Ask a pharmacist or consult the manufacturer's official instructions for the exact product and formulation."
       ]},
-      { heading: "12. Protect medicines from contamination", paragraphs: [
+      { heading: "13. Protect medicines from contamination", paragraphs: [
         "Keep the container and its closure clean and use products only as directed. Avoid touching the tip of eye drops, inhalers, creams or other applicators when the instructions warn against contamination. Do not share products intended for individual use, and do not return a used measuring device to a different medicine container.",
         "If packaging is damaged, a seal is broken unexpectedly or the contents look different from what you received, stop and seek advice before use. Do not attempt to repair a medicine package with household tape or transfer the contents to an unlabelled bottle. Safe identification and proper packaging are part of product safety."
       ]},
-      { heading: "13. Keep an emergency contact plan", paragraphs: [
+      { heading: "14. Keep an emergency contact plan", paragraphs: [
         "Households can agree on who to contact if someone takes the wrong medicine, a child may have swallowed a tablet, or a product has leaked or been damaged. Keep local emergency contact information accessible and know where the nearest appropriate healthcare service can be reached. For serious symptoms or a possible poisoning, seek urgent professional guidance immediately.",
         "Do not wait for symptoms or attempt home remedies such as inducing vomiting unless a qualified emergency professional specifically instructs you. Keep the package or a clear photograph available so responders can identify the product. This article is general education and cannot replace emergency advice tailored to the exact product and situation."
       ]},
-      { heading: "14. Check official recalls and product alerts", paragraphs: [
+      { heading: "15. Check official recalls and product alerts", paragraphs: [
         "Product recalls and safety alerts can affect particular brands, batches, strengths or expiry ranges. Keep packaging long enough to identify the product and batch details, and pay attention to notices from the manufacturer or relevant regulator. If an alert appears to match a medicine you have, follow the official instructions rather than relying on social media summaries.",
         "Do not continue using a product simply because the batch number is hard to read or because another person says it is probably unaffected. Ask a pharmacist or the relevant authority to help interpret the notice. If you supply care for a family member, communicate the verified information clearly and avoid sharing unconfirmed claims."
       ]},
-      { heading: "15. A final safe-storage checklist", paragraphs: [
+      { heading: "16. A final safe-storage checklist", paragraphs: [
         "Before putting a medicine away, check that the label is readable, the cap or seal is secure, the expiry date is known and the storage location matches the product's instructions. Keep it away from children, pets, moisture, heat and household chemicals. Return it to the same secure location after every use.",
         "Review this routine whenever you receive a new medicine or a product's instructions change. If a product's identity, storage history or condition is uncertain, ask a pharmacist. OCL Health provides general health education only; the exact package instructions and advice from a qualified professional should guide decisions about a specific medicine."
       ]}
