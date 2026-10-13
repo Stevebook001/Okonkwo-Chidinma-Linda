@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 
 type CountResult = { label: string; count: number | null; error?: string };
 
-async function readCount(client: ReturnType<typeof createClient>, table: string, label: string): Promise<CountResult> {
+async function readCount(client: any, table: string, label: string): Promise<CountResult> {
   try {
     const { count, error } = await client.from(table).select("*", { count: "exact", head: true });
     if (error) return { label, count: null, error: error.message };
