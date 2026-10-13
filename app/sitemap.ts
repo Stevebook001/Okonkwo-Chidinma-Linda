@@ -19,6 +19,8 @@ const LEGAL_PAGES = [
 
 // Keep this list in sync with articles that are actually published on the blog.
 // Drafts and unapproved product pages must never be added to a public sitemap.
+const DOC_PAGES = ["getting-started","account-security","publishing-workflow","product-compliance","analytics-and-privacy","email-and-notifications"] as const;
+
 const PUBLISHED_ARTICLES = [
   "read-a-medicine-label",
   "questions-for-your-pharmacist",
@@ -37,6 +39,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Private dashboards and API hosts should not advertise URLs for indexing.
   if (PRIVATE_HOSTS.has(host)) return [];
+
+  if (host === "docs.ocl.it.com") return [{ url: origin, lastModified: now, changeFrequency: "weekly", priority: 1 }, ...DOC_PAGES.map((slug) => ({ url: `${origin}/docs/${slug}`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.7 }))];
 
   if (host === "blogs.ocl.it.com") {
     return [
