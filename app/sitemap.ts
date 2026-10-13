@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { headers } from "next/headers";
+import { createClient } from "@supabase/supabase-js";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -42,15 +43,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   if (host === "docs.ocl.it.com") return [{ url: origin, lastModified: now, changeFrequency: "weekly", priority: 1 }, ...DOC_PAGES.map((slug) => ({ url: `${origin}/docs/${slug}`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.7 }))];
 
+  if (host === "shop.ocl.it.com") {
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const key = process.env.SUPABASE_SECRET_KEY;
+    if (!url || !key) return [{ url: origin, lastModified: now, changeFrequency: "weekly", priority: 1 }, { url: `${origin}/catalog`, lastModified: now, changeFrequency: "weekly", priority: 0.8 }];
+    const db = createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } });
+    const { data } = await db.from("products").select("slug,updated_at").eq("status", "active").eq("prescription_required", false).limit(500);
+    return [{ url: origin, lastModified: now, changeFrequency: "weekly", priority: 1 }, { url: `${origin}/catalog`, lastModified: now, changeFrequency: "daily", priority: 0.8 }, ...(data ?? []).map(p => ({ url: `${origin}/catalog/${p.slug}`, lastModified: p.updated_at ? new Date(p.updated_at) : now, changeFrequency: "weekly" as const, priority: 0.6 }))];
+  }
+
   if (host === "blogs.ocl.it.com") {
+    const dbUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const dbKey = process.env.SUPABASE_SECRET_KEY;
+    let dynamicPosts: { slug: string; updated_at: string | null }[] = [];
+    if (dbUrl && dbKey) {
+      const db = createClient(dbUrl, dbKey, { auth: { persistSession: false, autoRefreshToken: false } });
+      const { data } = await db.from("posts").select("slug,updated_at").eq("status", "published").limit(500);
+      dynamicPosts = (data ?? []) as typeof dynamicPosts;
+    }
     return [
       { url: origin, lastModified: now, changeFrequency: "weekly", priority: 1 },
-      ...PUBLISHED_ARTICLES.map((slug) => ({
-        url: `${origin}/articles/${slug}`,
-        lastModified: now,
-        changeFrequency: "monthly" as const,
-        priority: 0.7,
-      })),
+      ...PUBLISHED_ARTICLES.map((slug) => ({ url: `${origin}/articles/${slug}`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.7 })),
+      ...dynamicPosts.map((post) => ({ url: `${origin}/posts/${post.slug}`, lastModified: post.updated_at ? new Date(post.updated_at) : now, changeFrequency: "monthly" as const, priority: 0.7 })),
     ];
   }
 
