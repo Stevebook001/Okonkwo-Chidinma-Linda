@@ -5,8 +5,9 @@ import Script from "next/script";
 type Props = { clientId?: string };
 
 export default function AdSenseLoader({ clientId }: Props) {
-  // Do not load Google ad code before the publisher account provides a valid client ID.
-  if (!clientId || !/^ca-pub-\d+$/.test(clientId.trim())) return null;
+  // Explicit opt-in prevents ad code from loading before approval and consent/CMP setup.
+  const enabled = process.env.NEXT_PUBLIC_ADSENSE_ENABLED === "true";
+  if (!enabled || !clientId || !/^ca-pub-\d+$/.test(clientId.trim())) return null;
 
   return (
     <Script
