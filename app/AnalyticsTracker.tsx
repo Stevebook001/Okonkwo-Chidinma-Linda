@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
+import PresenceTracker from "./PresenceTracker";
 
 const PUBLIC_HOSTS = new Set([
   "ocl.it.com",
@@ -40,5 +41,5 @@ export default function AnalyticsTracker() {
     });
   }, [pathname]);
 
-  return null;
+  return <PresenceTracker />;
 }
