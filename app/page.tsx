@@ -3,6 +3,7 @@ import ContactForm from "@/app/ContactForm";
 import NewsletterForm from "@/app/NewsletterForm";
 import AdSenseLoader from "@/app/AdSenseLoader";
 import DocsHome from "@/app/docs/DocsHome";
+import { createClient } from "@supabase/supabase-js";
 
 const products = [
   ["Vitamin C 1000mg", "Vitamins & Supplements", "vitamin-c-1000mg", "/products/vitamin-c.svg"],
@@ -96,7 +97,15 @@ function MainSite() {
   );
 }
 
-function BlogPortal() {
+async function BlogPortal() {
+  let databasePosts: { title: string; category: string; slug: string; description: string; cover_image_url: string }[] = [];
+  const dbUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const dbKey = process.env.SUPABASE_SECRET_KEY;
+  if (dbUrl && dbKey) {
+    const db = createClient(dbUrl, dbKey, { auth: { persistSession: false, autoRefreshToken: false } });
+    const { data } = await db.from("posts").select("title,category,slug,description,cover_image_url").eq("status", "published").order("published_at", { ascending: false }).limit(30);
+    databasePosts = (data ?? []) as typeof databasePosts;
+  }
   const posts = [
     { category: "MEDICINE EDUCATION", image: "/blog/medicine-label.svg", title: "How to read a medicine label safely", excerpt: "Learn where to look for the active ingredient, strength, directions, warnings, expiry date and storage guidance.", slug: "read-a-medicine-label" },
     { category: "PHARMACY TIPS", image: "/blog/pharmacist-conversation.svg", title: "Questions to ask your pharmacist before using a medicine", excerpt: "A practical checklist to help you understand what a medicine is for, how to use it, and when to seek professional advice.", slug: "questions-for-your-pharmacist" },
@@ -107,6 +116,7 @@ function BlogPortal() {
     { category: "MEDICINE EDUCATION", image: "/blog/otc-medicine-safety.svg", title: "Using over-the-counter medicines more safely", excerpt: "Check ingredients, directions and warnings before using non-prescription medicines.", slug: "safe-use-of-over-the-counter-medicines" },
     { category: "HEALTH LITERACY", image: "/blog/medicine-list.svg", title: "How to make a useful personal medicine list", excerpt: "Keep a current record to support clearer healthcare conversations.", slug: "building-a-personal-medicine-list" },
   ];
+  const combinedPosts = [...databasePosts.map(p => ({ category: p.category.toUpperCase(), image: p.cover_image_url, title: p.title, excerpt: p.description, slug: p.slug, databasePost: true })), ...posts.map(p => ({ ...p, databasePost: false }))];
   return (
     <>
       <AdSenseLoader clientId={process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID} />
@@ -143,7 +153,7 @@ function Portal({ host }: { host: string }) {
     "support.ocl.it.com": { eyebrow:"OCL SUPPORT", title:"Help when you need it.", description:"Customer support, product enquiries, order assistance and platform help will be brought together here." }
   };
   const c=configs[host] ?? configs["docs.ocl.it.com"];
-  return <><header className="portalNav"><a className="brand" href="https://ocl.it.com"><span className="brandMark">✚</span><span>OCL <b>Health</b></span></a><a href="https://ocl.it.com">Main site →</a></header><HostBanner {...c}/>{host === "account.ocl.it.com" && <section className="portalActions"><a className="primary" href="/auth/sign-in">Sign in securely</a><a className="secondary" href="/auth/sign-up">Create an account</a></section>}{host === "shop.ocl.it.com" && <section className="portalActions"><a className="primary" href="/products/vitamin-c-1000mg">Vitamin C catalogue preview</a><a className="secondary" href="/products/paracetamol">Medicine catalogue preview</a><a className="secondary" href="/products/antacid-suspension">Digestive health preview</a></section>}{host === "support.ocl.it.com" && <section className="portalActions"><a className="primary" href="https://ocl.it.com/#contact">Send an enquiry</a><a className="secondary" href="mailto:me.ocl.it.com@gmail.com">Email OCL support</a></section>}{host === "admin.ocl.it.com" && <section className="portalActions"><span className="privateNotice">Private admin access verified. Product publishing, pricing and order tools still require the dedicated database connection.</span><a className="secondary" href="https://ocl.it.com/legal/drug-policy">Review drug policy</a><a className="secondary" href="https://ocl.it.com/legal/kedi-seller-policy">Review Kedi seller policy</a></section>}<section className="portalGrid"><article><span>PHASE 1</span><h2>Foundation is live.</h2><p>The domain, responsive interface, portal metadata and content structure are in place.</p></article><article><span>PHASE 2</span><h2>Connect real systems.</h2><p>Supabase authentication, product inventory, orders, publishing, email and role-based workflows require the dedicated database and environment settings.</p></article><article><span>SAFETY</span><h2>Compliance before checkout.</h2><p>Health data, payments and regulated products remain gated until access controls, seller authority and professional/regulatory checks are complete.</p></article></section><footer><div className="footerBottom">OCL Health • {host} • © 2026 • <a href="https://ocl.it.com/legal/privacy">Privacy</a> • <a href="https://ocl.it.com/legal/refund">Refunds</a> • <a href="https://ocl.it.com/legal/drug-policy">Drug policy</a></div></footer></>;
+  return <><header className="portalNav"><a className="brand" href="https://ocl.it.com"><span className="brandMark">✚</span><span>OCL <b>Health</b></span></a><a href="https://ocl.it.com">Main site →</a></header><HostBanner {...c}/>{host === "account.ocl.it.com" && <section className="portalActions"><a className="primary" href="/auth/sign-in">Sign in securely</a><a className="secondary" href="/auth/sign-up">Create an account</a></section>}{host === "shop.ocl.it.com" && <section className="portalActions"><a className="primary" href="/catalog">Browse verified catalogue</a><span className="privateNotice">Only approved catalogue items appear here. Drafts remain private until compliance review.</span></section>}{host === "support.ocl.it.com" && <section className="portalActions"><a className="primary" href="https://ocl.it.com/#contact">Send an enquiry</a><a className="secondary" href="mailto:me.ocl.it.com@gmail.com">Email OCL support</a></section>}{host === "admin.ocl.it.com" && <section className="portalActions"><span className="privateNotice">Private admin access verified. Product publishing, pricing and order tools still require the dedicated database connection.</span><a className="secondary" href="https://ocl.it.com/legal/drug-policy">Review drug policy</a><a className="secondary" href="https://ocl.it.com/legal/kedi-seller-policy">Review Kedi seller policy</a></section>}<section className="portalGrid"><article><span>PHASE 1</span><h2>Foundation is live.</h2><p>The domain, responsive interface, portal metadata and content structure are in place.</p></article><article><span>PHASE 2</span><h2>Connect real systems.</h2><p>Supabase authentication, product inventory, orders, publishing, email and role-based workflows require the dedicated database and environment settings.</p></article><article><span>SAFETY</span><h2>Compliance before checkout.</h2><p>Health data, payments and regulated products remain gated until access controls, seller authority and professional/regulatory checks are complete.</p></article></section><footer><div className="footerBottom">OCL Health • {host} • © 2026 • <a href="https://ocl.it.com/legal/privacy">Privacy</a> • <a href="https://ocl.it.com/legal/refund">Refunds</a> • <a href="https://ocl.it.com/legal/drug-policy">Drug policy</a></div></footer></>;
 }
 
 export default async function Home() {
