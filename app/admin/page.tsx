@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { createClient } from "@supabase/supabase-js";
+import AdminTools from "@/app/AdminTools";
 
 export const dynamic = "force-dynamic";
 
@@ -42,6 +43,8 @@ export default async function Admin() {
   let pageViews30d = 0;
   let topPages: { path: string; views: number }[] = [];
   let analyticsError = "";
+  let onlineVisitors = 0;
+  let onlinePaths: { host: string; current_path: string; last_seen_at: string }[] = [];
 
   if (supabaseUrl && secretKey) {
     const client = createClient(supabaseUrl, secretKey, { auth: { persistSession: false, autoRefreshToken: false } });
@@ -62,6 +65,11 @@ export default async function Admin() {
       ? "Connected • live row counts from OCL Supabase"
       : `Database credentials exist, but ${failed.length} table check(s) failed. Review schema permissions and migrations.`;
 
+    const onlineSince = new Date(Date.now() - 5 * 60 * 1000).toISOString();
+    const { count: activeCount } = await client.from("visitor_presence").select("visitor_id", { count: "exact", head: true }).gte("last_seen_at", onlineSince);
+    onlineVisitors = activeCount ?? 0;
+    const { data: activeRows } = await client.from("visitor_presence").select("host,current_path,last_seen_at").gte("last_seen_at", onlineSince).order("last_seen_at", { ascending: false }).limit(8);
+    onlinePaths = (activeRows ?? []) as typeof onlinePaths;
     const since = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
     const { data: events, error } = await client
       .from("analytics_events")
@@ -87,7 +95,7 @@ export default async function Admin() {
 
   const metricValue = (label: string) => counts.find((item) => item.label === label);
   return <main className="adminDashboard">
-    <aside className="adminSidebar"><a className="brand" href="https://ocl.it.com"><span className="brandMark">✚</span><span>OCL <b>Health</b></span></a><span className="adminSidebarLabel">CONTROL CENTER</span><a className="active" href="#overview">Overview</a><a href="#modules">Platform modules</a><a href="https://blogs.ocl.it.com">Health blog ↗</a><a href="https://shop.ocl.it.com">Marketplace ↗</a><a href="https://ocl.it.com/legal/drug-policy">Drug policy ↗</a><a href="https://ocl.it.com/legal/kedi-seller-policy">Kedi policy ↗</a><div className="adminSidebarFoot">Private workspace<br/>Access protected</div></aside>
+    <aside className="adminSidebar"><a className="brand" href="https://ocl.it.com"><span className="brandMark">✚</span><span>OCL <b>Health</b></span></a><span className="adminSidebarLabel">CONTROL CENTER</span><a className="active" href="#overview">Overview</a><a href="#analytics">Analytics</a><a href="#content-tools">Content tools</a><a href="#modules">Platform modules</a><a href="https://blogs.ocl.it.com">Health blog ↗</a><a href="https://shop.ocl.it.com">Marketplace ↗</a><a href="https://docs.ocl.it.com">Docs ↗</a><a href="https://github.com/Stevebook001/Okonkwo-Chidinma-Linda" target="_blank" rel="noreferrer">GitHub source ↗</a><a href="https://ocl.it.com/legal/drug-policy">Drug policy ↗</a><a href="https://ocl.it.com/legal/kedi-seller-policy">Kedi policy ↗</a><div className="adminSidebarFoot">Private workspace<br/>Access protected</div></aside>
     <div className="adminMain">
       <header className="adminTopbar"><div><span className="eyebrow">OCL HEALTH OPERATIONS</span><h1>Control center</h1></div><a className="secondary" href="https://ocl.it.com">View public site ↗</a></header>
       <section id="overview" className="adminWelcome"><div><span className="eyebrow">RELEASE READINESS</span><h2>Build safely. Launch confidently.</h2><p>The public website and domain structure are live. Keep sales and regulated-product publishing gated until the database, seller checks and checkout controls are verified.</p></div><span className="adminPrivatePill"><span/> PRIVATE ADMIN</span></section>
@@ -95,7 +103,7 @@ export default async function Admin() {
         <article><span className="adminStatusDot good"/> <span>Domain and Vercel</span><strong>Connected</strong><small>Custom domains verified in project</small></article>
         <article><span className="adminStatusDot good"/> <span>Resend sender</span><strong>Verified</strong><small>Outgoing email authentication ready</small></article>
         <article><span className={databaseConnected ? "adminStatusDot good" : "adminStatusDot pending"}/> <span>Database and Auth</span><strong>{databaseConnected ? "Connected" : secretKey ? "Needs review" : "Key missing"}</strong><small>{databaseMessage}</small></article>
-        <article><span className="adminStatusDot pending"/> <span>Commerce</span><strong>Disabled</strong><small>Do not accept orders yet</small></article>
+        <article><span className="adminStatusDot pending"/> <span>Commerce</span><strong>Disabled</strong><small>Do not accept orders yet</small></article><article className="adminOnlineCard"><span className="adminStatusDot good"/> <span>Anonymous active visitors · last 5 minutes</span><strong>{onlineVisitors.toLocaleString()}</strong><small>Approximate browser sessions; no names, emails or IP addresses are shown.</small>{onlinePaths.length>0&&<ul className="adminOnlinePaths">{onlinePaths.slice(0,4).map((v,i)=><li key={v.host+v.current_path+i}><span>{v.host}{v.current_path}</span><small>{Math.max(0,Math.round((Date.now()-new Date(v.last_seen_at).getTime())/1000))}s ago</small></li>)}</ul>}</article>
       </section>
       <section className="adminModulesHead" id="analytics">
         <div><span className="eyebrow">LIVE OPERATIONS DATA</span><h2>Analytics and platform health</h2><p>Database totals are queried live on page load. Search, traffic and advertising metrics are only shown when their own provider connections are configured; no sample numbers are invented.</p></div>
@@ -129,6 +137,7 @@ export default async function Admin() {
         <article className="adminModule"><div className="adminModuleTop"><span className="adminModuleNumber">04</span><span className="adminTag pendingTag">Credentials needed</span></div><h3>Ahrefs SEO</h3><p>Backlinks, referring domains, keyword visibility and competitor research. The connected Ahrefs workspace can be used for analysis; direct dashboard widgets require a supported API plan and API token.</p><a href="https://app.ahrefs.com/" target="_blank" rel="noreferrer">Open Ahrefs ↗</a></article>
         <article className="adminModule"><div className="adminModuleTop"><span className="adminModuleNumber">05</span><span className="adminTag pendingTag">Not approved yet</span></div><h3>Google AdSense</h3><p>Revenue, impressions, RPM and ad status are available only after publisher approval and linking the approved publisher account. No ad code or revenue claims are added before approval.</p><a href="https://adsense.google.com/" target="_blank" rel="noreferrer">Open AdSense ↗</a></article>
       </section>
+      <AdminTools />
       <section id="modules" className="adminModulesHead"><div><span className="eyebrow">WORKSPACES</span><h2>Platform modules</h2><p>Each module shows its real integration status; no demo sales or fake analytics are displayed.</p></div></section>
       <section className="adminModuleGrid">{modules.map((module, index) => <article className="adminModule" key={module.title}><div className="adminModuleTop"><span className="adminModuleNumber">{String(index+1).padStart(2,"0")}</span><span className={module.status === "Sender verified" || module.status === "Static guides live" ? "adminTag goodTag" : "adminTag pendingTag"}>{module.status}</span></div><h3>{module.title}</h3><p>{module.detail}</p><Link href={module.href}>{module.action} →</Link></article>)}</section>
       <section className="adminCompliance"><div><span className="eyebrow">BEFORE SELLING MEDICINES</span><h2>Compliance checklist</h2><p>Every regulated listing needs the correct product, supplier, registration and advertising evidence before it can be approved.</p></div><ul><li>Confirm supplier and product authenticity</li><li>Verify applicable NAFDAC registration and approved claims</li><li>Confirm Kedi website and trademark permission where applicable</li><li>Apply Kedi retail pricing and written promotion rules</li><li>Keep prescription-only and controlled medicines blocked unless a lawful workflow is approved</li></ul><div className="adminComplianceLinks"><Link href="https://ocl.it.com/legal/drug-policy">Drug policy</Link><Link href="https://ocl.it.com/legal/kedi-seller-policy">Kedi seller policy</Link><Link href="https://ocl.it.com/legal/refund">Refund policy</Link></div></section>
