@@ -573,6 +573,17 @@ const articles: Record<string, Article> = {
   },
 };
 
+const ARTICLE_KEYWORDS: Record<string,string[]> = {
+ "read-a-medicine-label":["how to read a medicine label","active ingredient","medicine expiry date","medicine safety","pharmacy advice"],
+ "questions-for-your-pharmacist":["questions to ask pharmacist","medicine interactions","pharmacy consultation","medicine side effects","medication review"],
+ "sustainable-nutrition-habits":["sustainable nutrition habits","balanced meals","healthy eating on a budget","hydration","food safety"],
+ "storing-medicines-safely":["how to store medicines","medicine storage at home","medicine expiry dates","child-safe medicine storage","pharmacy safety"],
+ "prepare-for-pharmacist-visit":["prepare for pharmacist appointment","pharmacist consultation questions","medicine list","pharmacy advice","medication review"],
+ "understanding-supplement-labels":["supplement label","vitamin ingredients","serving size","supplement warnings","health literacy"],
+ "safe-use-of-over-the-counter-medicines":["over the counter medicine safety","OTC medicine labels","active ingredients","medicine interactions","pharmacist advice"],
+ "building-a-personal-medicine-list":["personal medicine list","medication record","medicine allergies","pharmacist review","medicine safety"]
+};
+
 export async function generateStaticParams() {
   return Object.keys(articles).map((slug) => ({ slug }));
 }
