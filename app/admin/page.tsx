@@ -45,6 +45,8 @@ export default async function Admin() {
   let analyticsError = "";
   let onlineVisitors = 0;
   let onlinePaths: { host: string; current_path: string; last_seen_at: string }[] = [];
+  let recentPosts: { title: string; slug: string; status: string; created_at: string }[] = [];
+  let recentProducts: { name: string; slug: string; status: string; created_at: string }[] = [];
 
   if (supabaseUrl && secretKey) {
     const client = createClient(supabaseUrl, secretKey, { auth: { persistSession: false, autoRefreshToken: false } });
@@ -65,6 +67,10 @@ export default async function Admin() {
       ? "Connected • live row counts from OCL Supabase"
       : `Database credentials exist, but ${failed.length} table check(s) failed. Review schema permissions and migrations.`;
 
+    const { data: postRows } = await client.from("posts").select("title,slug,status,created_at").order("created_at", { ascending: false }).limit(6);
+    recentPosts = (postRows ?? []) as typeof recentPosts;
+    const { data: productRows } = await client.from("products").select("name,slug,status,created_at").order("created_at", { ascending: false }).limit(6);
+    recentProducts = (productRows ?? []) as typeof recentProducts;
     const onlineSince = new Date(Date.now() - 5 * 60 * 1000).toISOString();
     const { count: activeCount } = await client.from("visitor_presence").select("visitor_id", { count: "exact", head: true }).gte("last_seen_at", onlineSince);
     onlineVisitors = activeCount ?? 0;
@@ -138,6 +144,8 @@ export default async function Admin() {
         <article className="adminModule"><div className="adminModuleTop"><span className="adminModuleNumber">05</span><span className="adminTag pendingTag">Not approved yet</span></div><h3>Google AdSense</h3><p>Revenue, impressions, RPM and ad status are available only after publisher approval and linking the approved publisher account. No ad code or revenue claims are added before approval.</p><a href="https://adsense.google.com/" target="_blank" rel="noreferrer">Open AdSense ↗</a></article>
       </section>
       <AdminTools />
+      <section className="adminModulesHead"><div><span className="eyebrow">RECENT DATABASE RECORDS</span><h2>Recent blog and product drafts</h2><p>New items are stored in Supabase. They remain private until an authorised review and publishing workflow approves them.</p></div></section>
+      <section className="adminModuleGrid"><article className="adminModule"><h3>Recent blog posts</h3>{recentPosts.length ? <ul className="adminTopPages">{recentPosts.map(p=><li key={p.slug}><span>{p.title}<br/><small>/{p.slug} · {p.status}</small></span><strong>{new Date(p.created_at).toLocaleDateString()}</strong></li>)}</ul> : <p>No database-backed posts yet. Use the blog draft form above to create one.</p>}</article><article className="adminModule"><h3>Recent catalogue items</h3>{recentProducts.length ? <ul className="adminTopPages">{recentProducts.map(p=><li key={p.slug}><span>{p.name}<br/><small>/{p.slug} · {p.status}</small></span><strong>{new Date(p.created_at).toLocaleDateString()}</strong></li>)}</ul> : <p>No database-backed products yet. Use the product draft form above to add one.</p>}</article></section>
       <section id="modules" className="adminModulesHead"><div><span className="eyebrow">WORKSPACES</span><h2>Platform modules</h2><p>Each module shows its real integration status; no demo sales or fake analytics are displayed.</p></div></section>
       <section className="adminModuleGrid">{modules.map((module, index) => <article className="adminModule" key={module.title}><div className="adminModuleTop"><span className="adminModuleNumber">{String(index+1).padStart(2,"0")}</span><span className={module.status === "Sender verified" || module.status === "Static guides live" ? "adminTag goodTag" : "adminTag pendingTag"}>{module.status}</span></div><h3>{module.title}</h3><p>{module.detail}</p><Link href={module.href}>{module.action} →</Link></article>)}</section>
       <section className="adminCompliance"><div><span className="eyebrow">BEFORE SELLING MEDICINES</span><h2>Compliance checklist</h2><p>Every regulated listing needs the correct product, supplier, registration and advertising evidence before it can be approved.</p></div><ul><li>Confirm supplier and product authenticity</li><li>Verify applicable NAFDAC registration and approved claims</li><li>Confirm Kedi website and trademark permission where applicable</li><li>Apply Kedi retail pricing and written promotion rules</li><li>Keep prescription-only and controlled medicines blocked unless a lawful workflow is approved</li></ul><div className="adminComplianceLinks"><Link href="https://ocl.it.com/legal/drug-policy">Drug policy</Link><Link href="https://ocl.it.com/legal/kedi-seller-policy">Kedi seller policy</Link><Link href="https://ocl.it.com/legal/refund">Refund policy</Link></div></section>
