@@ -209,7 +209,7 @@ const articles: Record<string, Article> = {
         "The aim is not perfection or a rapid result. It is to create a few repeatable actions that make balanced choices easier. OCL Health shares general educational information, not a personalised treatment plan. If you have a health condition or specific nutrition concern, discuss it with a qualified healthcare professional who can take your individual needs into account."
       ]}
     ]
-  }
+  },
 
   "storing-medicines-safely": {
     category: "MEDICINE SAFETY",
