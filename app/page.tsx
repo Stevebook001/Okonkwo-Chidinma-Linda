@@ -97,7 +97,7 @@ function MainSite() {
   );
 }
 
-async function BlogPortal() {
+async function BlogPortal({ pageNumber = 1 }: { pageNumber?: number }) {
   let databasePosts: { title: string; category: string; slug: string; description: string; cover_image_url: string }[] = [];
   const dbUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const dbKey = process.env.SUPABASE_SECRET_KEY;
@@ -117,20 +117,25 @@ async function BlogPortal() {
     { category: "HEALTH LITERACY", image: "/blog/medicine-list.svg", title: "How to make a useful personal medicine list", excerpt: "Keep a current record to support clearer healthcare conversations.", slug: "building-a-personal-medicine-list" },
   ];
   const combinedPosts = [...databasePosts.map(p => ({ category: p.category.toUpperCase(), image: p.cover_image_url, title: p.title, excerpt: p.description, slug: p.slug, databasePost: true })), ...posts.map(p => ({ ...p, databasePost: false }))];
+  const pageSize = 6;
+  const pageCount = Math.max(1, Math.ceil(combinedPosts.length / pageSize));
+  const currentPage = Math.min(Math.max(1, Math.floor(pageNumber) || 1), pageCount);
+  const visiblePosts = combinedPosts.slice((currentPage - 1) * pageSize, currentPage * pageSize);
   return (
     <>
       <AdSenseLoader clientId={process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID} />
       <header className="nav">
         <a className="brand" href="https://ocl.it.com"><span className="brandMark">✚</span><span>OCL <b>Health</b></span></a>
-        <nav><a href="https://ocl.it.com/#about">About OCL</a><a href="https://shop.ocl.it.com">Marketplace</a><a className="navButton" href="mailto:me.ocl.it.com@gmail.com">Contact</a></nav>
+        <nav><a href="https://ocl.it.com/#about">About OCL</a><a href="https://shop.ocl.it.com">Marketplace</a><a className="navButton" href="https://ocl.it.com/#contact">Contact</a></nav>
       </header>
       <section className="blogHero">
         <div><span className="eyebrow">THE OCL HEALTH JOURNAL</span><h1>Clear health information.<br/><em>More confident questions.</em></h1><p>Accessible educational articles about pharmacy, medicine labels, wellness and how to have more informed conversations with qualified healthcare professionals.</p><div className="actions"><a className="primary" href="#latest">Explore articles ↓</a><a className="secondary" href="https://ocl.it.com">Visit OCL Health</a></div></div>
         <aside className="blogHeroCard"><span className="blogBadge">OCL EDITORIAL</span><div className="blogIllustration">✚</div><h2>Knowledge is a good place to start.</h2><p>Evidence-aware, practical education — never a substitute for personal medical advice.</p></aside>
       </section>
       <section className="section" id="latest">
-        <div className="sectionHead"><div><span className="eyebrow">LATEST GUIDES</span><h2>Start with the essentials.</h2></div><span className="blogCount">{8 + databasePosts.length} editorial guides</span></div>
-        <div className="articleGrid">{combinedPosts.map((post, index) => <article className="article blogArticle" key={post.slug}><div className="articleImage blogArtImage"><img src={post.image} alt={post.title} loading="lazy" /><span>0{index + 1}</span></div><span>{post.category}</span><h3>{post.title}</h3><p>{post.excerpt}</p><a href={post.databasePost ? `/posts/${post.slug}` : `/articles/${post.slug}`}>Read guide →</a></article>)}</div>
+        <div className="sectionHead"><div><span className="eyebrow">LATEST GUIDES</span><h2>Start with the essentials.</h2></div><span className="blogCount">{combinedPosts.length} editorial guides · Page {currentPage} of {pageCount}</span></div>
+        <div className="articleGrid">{visiblePosts.map((post, index) => <article className="article blogArticle" key={post.slug}><div className="articleImage blogArtImage"><img src={post.image} alt={post.title} loading="lazy" /><span>0{index + 1}</span></div><span>{post.category}</span><h3>{post.title}</h3><p>{post.excerpt}</p><a href={post.databasePost ? `/posts/${post.slug}` : `/articles/${post.slug}`}>Read full article ↑</a></article>)}</div>
+        <nav className="blogPagination" aria-label="Blog pages">{currentPage > 1 && <a href={currentPage === 2 ? "/" : `/?page=${currentPage - 1}`} aria-label="Previous page">← Previous</a>}{Array.from({length: pageCount}, (_, i) => i + 1).map(n => <a key={n} href={n === 1 ? "/" : `/?page=${n}`} aria-current={n === currentPage ? "page" : undefined} className={n === currentPage ? "current" : ""}>Page {n}</a>)}{currentPage < pageCount && <a href={`/?page=${currentPage + 1}`} aria-label="Next page">Next →</a>}</nav>
       </section>
       <section className="blogTopics"><span className="eyebrow">EXPLORE BY TOPIC</span><div className="topicRow">{["Medicine education","Pharmacy conversations","Nutrition","Everyday wellness","Product safety","Health literacy"].map(topic => <span key={topic}>{topic}</span>)}</div></section>
       <section className="blogDisclaimer"><strong>A note on health information</strong><p>OCL articles are for general education only. They do not diagnose conditions, recommend an individual treatment plan, or replace advice from a qualified pharmacist, doctor or other licensed healthcare professional. For an urgent or severe symptom, seek appropriate local medical care.</p></section>
@@ -139,8 +144,8 @@ async function BlogPortal() {
   );
 }
 
-function Portal({ host }: { host: string }) {
-  if (host === "blogs.ocl.it.com") return <BlogPortal />;
+function Portal({ host, pageNumber = 1 }: { host: string; pageNumber?: number }) {
+  if (host === "blogs.ocl.it.com") return <BlogPortal pageNumber={pageNumber} />;
   const configs: Record<string,{title:string;description:string;eyebrow:string}> = {
     "blogs.ocl.it.com": { eyebrow:"OCL PUBLISHING", title:"Health knowledge worth finding.", description:"The OCL Health Blog will be the publishing home for pharmacy, chemistry, medicine education, wellness and practical health content." },
     "developers.ocl.it.com": { eyebrow:"OCL DEVELOPER PLATFORM", title:"Build with OCL.", description:"Developer APIs, authentication, webhooks, SDKs, sandbox access and integration guides for approved OCL services — designed without exposing private customer health records." },
@@ -156,9 +161,11 @@ function Portal({ host }: { host: string }) {
   return <><header className="portalNav"><a className="brand" href="https://ocl.it.com"><span className="brandMark">✚</span><span>OCL <b>Health</b></span></a><a href="https://ocl.it.com">Main site →</a></header><HostBanner {...c}/>{host === "account.ocl.it.com" && <section className="portalActions"><a className="primary" href="/auth/sign-in">Sign in securely</a><a className="secondary" href="/auth/sign-up">Create an account</a></section>}{host === "shop.ocl.it.com" && <section className="portalActions"><a className="primary" href="/catalog">Browse verified catalogue</a><span className="privateNotice">Only approved catalogue items appear here. Drafts remain private until compliance review.</span></section>}{host === "support.ocl.it.com" && <section className="portalActions"><a className="primary" href="https://ocl.it.com/#contact">Send an enquiry</a><a className="secondary" href="mailto:me.ocl.it.com@gmail.com">Email OCL support</a></section>}{host === "admin.ocl.it.com" && <section className="portalActions"><span className="privateNotice">Private admin access verified. Product publishing, pricing and order tools still require the dedicated database connection.</span><a className="secondary" href="https://ocl.it.com/legal/drug-policy">Review drug policy</a><a className="secondary" href="https://ocl.it.com/legal/kedi-seller-policy">Review Kedi seller policy</a></section>}<section className="portalGrid"><article><span>PHASE 1</span><h2>Foundation is live.</h2><p>The domain, responsive interface, portal metadata and content structure are in place.</p></article><article><span>PHASE 2</span><h2>Connect real systems.</h2><p>Supabase authentication, product inventory, orders, publishing, email and role-based workflows require the dedicated database and environment settings.</p></article><article><span>SAFETY</span><h2>Compliance before checkout.</h2><p>Health data, payments and regulated products remain gated until access controls, seller authority and professional/regulatory checks are complete.</p></article></section><footer><div className="footerBottom">OCL Health • {host} • © 2026 • <a href="https://ocl.it.com/legal/privacy">Privacy</a> • <a href="https://ocl.it.com/legal/refund">Refunds</a> • <a href="https://ocl.it.com/legal/drug-policy">Drug policy</a></div></footer></>;
 }
 
-export default async function Home() {
+export default async function Home({ searchParams }: { searchParams: Promise<{ page?: string }> }) {
   const host = (await headers()).get("host")?.split(":")[0] ?? "www.ocl.it.com";
+  const params = await searchParams;
+  const pageNumber = Number.parseInt(params?.page ?? "1", 10) || 1;
   if (host === "docs.ocl.it.com") return <DocsHome />;
-  if (host !== "ocl.it.com" && host !== "www.ocl.it.com") return <Portal host={host}/>;
+  if (host !== "ocl.it.com" && host !== "www.ocl.it.com") return <Portal host={host} pageNumber={pageNumber}/>;
   return <main><MainSite /></main>;
 }
