@@ -59,6 +59,7 @@ export default async function Admin() {
       ["analytics_events", "Tracked site events"],
       ["article_submissions", "Article submissions"],
       ["refund_requests", "Refund requests"],
+      ["product_enquiries", "Product enquiries"],
     ];
     counts = await Promise.all(tables.map(([table, label]) => readCount(client, table, label)));
     const failed = counts.filter((item) => item.error);
