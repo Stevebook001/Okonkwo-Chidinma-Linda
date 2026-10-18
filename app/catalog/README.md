@@ -1,0 +1,1 @@
+Public product detail routes live in [slug]/page.tsx. Only catalogue items with a public status are rendered.
