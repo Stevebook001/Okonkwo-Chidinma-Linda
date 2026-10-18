@@ -20,7 +20,7 @@ const LEGAL_PAGES = [
 
 // Keep this list in sync with articles that are actually published on the blog.
 // Drafts and unapproved product pages must never be added to a public sitemap.
-const DOC_PAGES = ["getting-started","account-security","publishing-workflow","product-compliance","analytics-and-privacy","email-and-notifications","api-authentication","api-rate-limits","api-errors","webhook-security","webhook-retries","product-catalogue-api","content-api","order-lifecycle","privacy-by-design","seller-onboarding","product-image-guidelines","seo-metadata","open-graph","sitemap-management","accessibility","incident-response","account-recovery","email-delivery","newsletter-consent","refund-workflow","inventory-updates","health-content-review","editorial-policy","analytics-events","visitor-presence","search-console","vercel-deployment","domain-configuration","dns-basics","environment-variables","admin-access","audit-logging","database-backups","row-level-security","data-retention","security-reporting","payment-provider-setup","manual-payment-orders","virtual-accounts","checkout-webhooks","order-email-notifications","product-compliance-review","kedi-seller-policy","api-key-management","sdk-overview","changelog"] as const;
+const DOC_PAGES = ["getting-started","account-security","publishing-workflow","product-compliance","analytics-and-privacy","email-and-notifications"] as const;
 
 const PUBLISHED_ARTICLES = [
   "read-a-medicine-label",
