@@ -1,0 +1,1 @@
+Database-backed published OCL Health articles are routed through [slug]/page.tsx. This file preserves the route directory in Git.
