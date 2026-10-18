@@ -4,7 +4,8 @@ import { NextRequest, NextResponse } from "next/server";
 export async function proxy(request: NextRequest) {
   const hostname = request.headers.get("host")?.split(":")[0]?.toLowerCase() ?? "";
 
-  const isAdminRequest = hostname === "admin.ocl.it.com" || request.nextUrl.pathname === "/admin" || request.nextUrl.pathname.startsWith("/admin/");
+  const isAdminHost = hostname === "admin.ocl.it.com" || hostname === "admin.builder.ocl.it.com";
+  const isAdminRequest = isAdminHost || request.nextUrl.pathname === "/admin" || request.nextUrl.pathname.startsWith("/admin/");
   if (isAdminRequest) {
     const username = process.env.OCL_ADMIN_USER;
     const password = process.env.OCL_ADMIN_PASSWORD;
@@ -22,7 +23,7 @@ export async function proxy(request: NextRequest) {
       try {
         const [providedUser, ...passwordParts] = atob(authorization.slice(6)).split(":");
         if (providedUser === username && passwordParts.join(":") === password) {
-          const response = hostname === "admin.ocl.it.com" && request.nextUrl.pathname === "/"
+          const response = isAdminHost && request.nextUrl.pathname === "/"
             ? NextResponse.redirect(new URL("/admin", request.url))
             : NextResponse.next();
           response.headers.set("Cache-Control", "private, no-store, max-age=0");
