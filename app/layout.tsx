@@ -14,13 +14,15 @@ const configs: Record<string,{title:string;description:string}> = {
   "shop.ocl.it.com": { title:"OCL Shop | Health Products", description:"Explore health product information and catalogue availability through OCL Health, subject to verification and compliance review." },
   "api.ocl.it.com": { title:"OCL API | Programmable Health Platform", description:"Authenticated OCL APIs for approved product, content and platform integrations." },
   "status.ocl.it.com": { title:"OCL Status | Service Health", description:"OCL platform service information and availability updates." },
-  "support.ocl.it.com": { title:"OCL Support | Help & Product Enquiries", description:"OCL Health support for customer questions, product enquiries and platform assistance." }
+  "support.ocl.it.com": { title:"OCL Support | Help & Product Enquiries", description:"OCL Health support for customer questions, product enquiries and platform assistance." },
+  "builder.ocl.it.com": { title:"OCL Builder | Create with OCL", description:"A developing workspace for building websites and digital experiences with OCL." },
+  "admin.builder.ocl.it.com": { title:"OCL Builder Admin | Private Workspace", description:"Private administration for the OCL Builder workspace." }
 };
 
 export async function generateMetadata(): Promise<Metadata> {
   const host = (await headers()).get("host")?.split(":")[0]?.toLowerCase() ?? "www.ocl.it.com";
   const c = configs[host] ?? configs["www.ocl.it.com"];
-  const privateHost = ["admin.ocl.it.com", "account.ocl.it.com", "api.ocl.it.com"].includes(host);
+  const privateHost = ["admin.ocl.it.com", "admin.builder.ocl.it.com", "account.ocl.it.com", "api.ocl.it.com"].includes(host);
   const canonical = "https://" + host;
   return {
     metadataBase: new URL(canonical),
