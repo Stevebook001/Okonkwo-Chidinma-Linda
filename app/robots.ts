@@ -8,7 +8,7 @@ export default async function robots(): Promise<MetadataRoute.Robots> {
   const host = (await headers()).get("host")?.split(":")[0]?.toLowerCase() ?? "ocl.it.com";
   const sitemap = `https://${host}/sitemap.xml`;
 
-  if (["admin.ocl.it.com", "account.ocl.it.com", "api.ocl.it.com"].includes(host)) {
+  if (["admin.ocl.it.com", "admin.builder.ocl.it.com", "account.ocl.it.com", "api.ocl.it.com"].includes(host)) {
     return { rules: { userAgent: "*", disallow: "/" } };
   }
 
