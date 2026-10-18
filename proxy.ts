@@ -1,44 +1,41 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextRequest, NextResponse } from "next/server";
+import { verifyAdminSessionToken } from "@/app/adminAuth";
 
 export async function proxy(request: NextRequest) {
   const hostname = request.headers.get("host")?.split(":")[0]?.toLowerCase() ?? "";
 
   const isAdminHost = hostname === "admin.ocl.it.com" || hostname === "admin.builder.ocl.it.com";
-  const isAdminRequest = isAdminHost || request.nextUrl.pathname === "/admin" || request.nextUrl.pathname.startsWith("/admin/");
+  const path = request.nextUrl.pathname;
+  if (path.startsWith("/admin") && !isAdminHost) {
+    return NextResponse.redirect(new URL("https://admin.ocl.it.com/admin/login"), 307);
+  }
+  const isAdminRequest = isAdminHost || path === "/admin" || path.startsWith("/admin/");
   if (isAdminRequest) {
+    if (path === "/admin/login" || path === "/api/admin/login") {
+      const response = NextResponse.next();
+      response.headers.set("Cache-Control", "no-store");
+      response.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
+      return response;
+    }
     const username = process.env.OCL_ADMIN_USER;
     const password = process.env.OCL_ADMIN_PASSWORD;
-
-    // Fail closed until the owner sets unique credentials in Vercel.
     if (!username || !password) {
       return new NextResponse("OCL admin access is locked until OCL_ADMIN_USER and OCL_ADMIN_PASSWORD are configured in Vercel.", {
         status: 503,
         headers: { "Cache-Control": "no-store", "Content-Type": "text/plain; charset=utf-8", "X-Robots-Tag": "noindex, nofollow, noarchive" }
       });
     }
-
-    const authorization = request.headers.get("authorization");
-    if (authorization?.startsWith("Basic ")) {
-      try {
-        const [providedUser, ...passwordParts] = atob(authorization.slice(6)).split(":");
-        if (providedUser === username && passwordParts.join(":") === password) {
-          const response = isAdminHost && request.nextUrl.pathname === "/"
-            ? NextResponse.redirect(new URL("/admin", request.url))
-            : NextResponse.next();
-          response.headers.set("Cache-Control", "private, no-store, max-age=0");
-          response.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
-          return response;
-        }
-      } catch {
-        // Invalid credentials are rejected below.
-      }
+    const token = request.cookies.get("ocl_admin_session")?.value;
+    if (await verifyAdminSessionToken(token, username, password)) {
+      const response = isAdminHost && path === "/"
+        ? NextResponse.redirect(new URL("/admin", request.url))
+        : NextResponse.next();
+      response.headers.set("Cache-Control", "private, no-store, max-age=0");
+      response.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
+      return response;
     }
-
-    return new NextResponse("Authentication required.", {
-      status: 401,
-      headers: { "WWW-Authenticate": 'Basic realm="OCL Admin", charset="UTF-8"', "Cache-Control": "no-store", "X-Robots-Tag": "noindex, nofollow, noarchive" }
-    });
+    return NextResponse.redirect(new URL("/admin/login", request.url), 307);
   }
 
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
