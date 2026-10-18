@@ -3,6 +3,7 @@ import ContactForm from "@/app/ContactForm";
 import NewsletterForm from "@/app/NewsletterForm";
 import AdSenseLoader from "@/app/AdSenseLoader";
 import DocsHome from "@/app/docs/DocsHome";
+import ShopPortal from "@/app/ShopPortal";
 import { createClient } from "@supabase/supabase-js";
 
 const products = [
@@ -146,6 +147,7 @@ async function BlogPortal({ pageNumber = 1 }: { pageNumber?: number }) {
 
 function Portal({ host, pageNumber = 1 }: { host: string; pageNumber?: number }) {
   if (host === "blogs.ocl.it.com") return <BlogPortal pageNumber={pageNumber} />;
+  if (host === "shop.ocl.it.com") return <ShopPortal />;
   const configs: Record<string,{title:string;description:string;eyebrow:string}> = {
     "blogs.ocl.it.com": { eyebrow:"OCL PUBLISHING", title:"Health knowledge worth finding.", description:"The OCL Health Blog will be the publishing home for pharmacy, chemistry, medicine education, wellness and practical health content." },
     "developers.ocl.it.com": { eyebrow:"OCL DEVELOPER PLATFORM", title:"Build with OCL.", description:"Developer APIs, authentication, webhooks, SDKs, sandbox access and integration guides for approved OCL services — designed without exposing private customer health records." },
@@ -155,7 +157,8 @@ function Portal({ host, pageNumber = 1 }: { host: string; pageNumber?: number })
     "shop.ocl.it.com": { eyebrow:"OCL MARKETPLACE", title:"Health products, in one place.", description:"The production marketplace will connect product information, current pricing, availability, carts and secure checkout." },
     "api.ocl.it.com": { eyebrow:"OCL API", title:"A programmable health platform.", description:"The future OCL API gateway will provide authenticated access to approved product, content and platform capabilities." },
     "status.ocl.it.com": { eyebrow:"OCL STATUS", title:"Service health and availability.", description:"A public status page for OCL services, APIs and future platform components." },
-    "support.ocl.it.com": { eyebrow:"OCL SUPPORT", title:"Help when you need it.", description:"Customer support, product enquiries, order assistance and platform help will be brought together here." }
+    "support.ocl.it.com": { eyebrow:"OCL SUPPORT", title:"Help when you need it.", description:"Customer support, product enquiries, order assistance and platform help will be brought together here." },
+    "builder.ocl.it.com": { eyebrow:"OCL BUILDER", title:"Build your next idea with OCL.", description:"A planned workspace for creating websites and digital experiences. Builder publishing, billing and project storage are not enabled yet." }
   };
   const c=configs[host] ?? configs["docs.ocl.it.com"];
   return <><header className="portalNav"><a className="brand" href="https://ocl.it.com"><span className="brandMark">✚</span><span>OCL <b>Health</b></span></a><a href="https://ocl.it.com">Main site →</a></header><HostBanner {...c}/>{host === "account.ocl.it.com" && <section className="portalActions"><a className="primary" href="/auth/sign-in">Sign in securely</a><a className="secondary" href="/auth/sign-up">Create an account</a></section>}{host === "shop.ocl.it.com" && <section className="portalActions"><a className="primary" href="/catalog">Browse verified catalogue</a><span className="privateNotice">Only approved catalogue items appear here. Drafts remain private until compliance review.</span></section>}{host === "support.ocl.it.com" && <section className="portalActions"><a className="primary" href="https://ocl.it.com/#contact">Send an enquiry</a><a className="secondary" href="mailto:me.ocl.it.com@gmail.com">Email OCL support</a></section>}{host === "admin.ocl.it.com" && <section className="portalActions"><span className="privateNotice">Private admin access verified. Product publishing, pricing and order tools still require the dedicated database connection.</span><a className="secondary" href="https://ocl.it.com/legal/drug-policy">Review drug policy</a><a className="secondary" href="https://ocl.it.com/legal/kedi-seller-policy">Review Kedi seller policy</a></section>}<section className="portalGrid"><article><span>PHASE 1</span><h2>Foundation is live.</h2><p>The domain, responsive interface, portal metadata and content structure are in place.</p></article><article><span>PHASE 2</span><h2>Connect real systems.</h2><p>Supabase authentication, product inventory, orders, publishing, email and role-based workflows require the dedicated database and environment settings.</p></article><article><span>SAFETY</span><h2>Compliance before checkout.</h2><p>Health data, payments and regulated products remain gated until access controls, seller authority and professional/regulatory checks are complete.</p></article></section><footer><div className="footerBottom">OCL Health • {host} • © 2026 • <a href="https://ocl.it.com/legal/privacy">Privacy</a> • <a href="https://ocl.it.com/legal/refund">Refunds</a> • <a href="https://ocl.it.com/legal/drug-policy">Drug policy</a></div></footer></>;
